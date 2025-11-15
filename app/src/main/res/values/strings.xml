@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">ServiGo</string>
+    
+    <!-- Splash Screen -->
+    <string name="servigo">ServiGo</string>
+    <string name="slogan">Conectando con profesionales de confianza</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Publicidad</string>
+    <string name="onboarding_desc_1">Descubre los mejores servicios locales con descuentos exclusivos y ofertas especiales solo para usuarios de ServiGo.</string>
+    
+    <string name="onboarding_title_2">Accede a tu Perfil</string>
+    <string name="onboarding_desc_2">Comienza a gestionar tu perfil de profesional y muestra tus servicios a miles de clientes potenciales.</string>
+    
+    <!-- Login/Inicio de Sesión -->
+    <string name="welcome_back">Bienvenido de nuevo</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="register">Registrarse</string>
+    <string name="or">O</string>
+    
+    <!-- Registro -->
+    <string name="create_account">Crea tu cuenta</string>
+    <string name="nombres">Nombres</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="dni">DNI</string>
+    <string name="edad">Edad</string>
+    <string name="fecha_nacimiento">Fecha de Nacimiento</string>
+    <string name="provincia">Provincia</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="distrito">Distrito</string>
+    <string name="direccion">Dirección</string>
+    <string name="oficio">Oficio</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="inicio">Inicio</string>
+    <string name="explorar">Explorar</string>
+    <string name="trabajos">Trabajos</string>
+    <string name="mensajes">Mensajes</string>
+    <string name="perfil">Perfil</string>
+    
+    <!-- Perfil -->
+    <string name="foto_perfil">Foto de perfil</string>
+    <string name="nombre_profesional">Juan Pérez García</string>
+    <string name="oficio_profesional">Mecánico Profesional</string>
+    <string name="calificacion">4.5</string>
+    <string name="rating_45">4.5</string>
+    <string name="reviews_count">(128 reseñas)</string>
+    <string name="informacion_personal">Información Personal</string>
+    <string name="email_label">Email:</string>
+    <string name="email_ejemplo">juan.perez@servigo.com</string>
+    <string name="telefono_label">Teléfono:</string>
+    <string name="telefono_ejemplo">+51 987 654 321</string>
+    <string name="ubicacion_label">Ubicación:</string>
+    <string name="ubicacion_ejemplo">Lima, Perú</string>
+    <string name="experiencia_label">Experiencia:</string>
+    <string name="experiencia_ejemplo">5 años</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    
+    <!-- Búsqueda -->
+    <string name="buscar_profesionales">Buscar profesionales...</string>
+    <string name="busca_trabajos">Busca trabajos cerca de ti</string>
+</resources>
