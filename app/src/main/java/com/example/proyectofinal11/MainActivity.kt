@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_favoritos -> {
-                    loadFragment(TrabajosFragment())
+                    loadFragment(FavoritosFragment())
                     true
                 }
                 R.id.nav_trabajo -> {

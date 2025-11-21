@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Card 1 -->
+            
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card1"
                 android:layout_width="match_parent"
@@ -36,14 +36,13 @@
                     android:background="@color/white"
                     android:padding="16dp">
 
-                    <!-- Sección Superior -->
+                    
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical">
 
-                        <!-- Avatar Circular -->
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
@@ -59,7 +58,7 @@
                                 android:src="@android:drawable/ic_menu_gallery" />
                         </com.google.android.material.card.MaterialCardView>
 
-                        <!-- Información del Usuario -->
+                        
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -133,7 +132,6 @@
                             </LinearLayout>
                         </LinearLayout>
 
-                        <!-- Icono de Corazón (Sólido) -->
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -143,7 +141,7 @@
                             android:padding="4dp" />
                     </LinearLayout>
 
-                    <!-- Botones -->
+                    
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -181,7 +179,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 2 -->
+           
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card2"
                 android:layout_width="match_parent"
