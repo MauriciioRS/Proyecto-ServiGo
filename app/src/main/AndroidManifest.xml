@@ -33,6 +33,16 @@
             android:name=".RegistroActivity"
             android:exported="false" />
         
+        <!-- Pantalla de Registro Paso 2 -->
+        <activity
+            android:name=".Registro2Activity"
+            android:exported="false" />
+        
+        <!-- Pantalla de Registro Paso 3 -->
+        <activity
+            android:name=".Registro3Activity"
+            android:exported="false" />
+        
         <!-- Pantalla principal: Home de la aplicación -->
         <activity
             android:name=".MainActivity"

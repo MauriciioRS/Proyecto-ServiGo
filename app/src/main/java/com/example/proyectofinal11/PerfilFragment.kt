@@ -21,11 +21,9 @@ class PerfilFragment : Fragment() {
         
         logoutButton = view.findViewById(R.id.logout_button)
         
-        // aca para poner estrellas 4.5
         val starRating = view.findViewById<android.widget.TextView>(R.id.star_rating)
         starRating?.text = "★★★★☆"
         
-        // Botón cerrar sesión
         logoutButton.setOnClickListener {
 
             val intent = Intent(requireContext(), InicioSesionActivity::class.java)

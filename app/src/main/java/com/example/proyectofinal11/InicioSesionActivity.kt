@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.widget.Button
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 
@@ -15,7 +16,7 @@ class InicioSesionActivity : AppCompatActivity() {
     private lateinit var emailEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var loginButton: MaterialButton
-    private lateinit var registerButton: MaterialButton
+    private lateinit var registerButton: Button
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +32,8 @@ class InicioSesionActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.email_edit_text)
         passwordEditText = findViewById(R.id.password_edit_text)
         loginButton = findViewById(R.id.login_button)
-        registerButton = findViewById(R.id.register_button)
+        registerButton = findViewById(R.id.Registrate_button)
         
-        // Botón de inicio de sesión
         loginButton.setOnClickListener {
 
             val intent = Intent(this, MainActivity::class.java)
@@ -41,7 +41,6 @@ class InicioSesionActivity : AppCompatActivity() {
             finish()
         }
         
-        // Botón de registro
         registerButton.setOnClickListener {
             val intent = Intent(this, RegistroActivity::class.java)
             startActivity(intent)

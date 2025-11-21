@@ -14,273 +14,233 @@
         android:padding="24dp"
         tools:context=".RegistroActivity">
 
+        <!-- Indicador de progreso -->
+
+        <!-- Título principal -->
+
         <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register"
-            android:textColor="@color/text_primary"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/progress_indicator"
+            android:layout_width="79dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="20dp"
+            android:text="Paso 1 de 3"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/subtitle_text"
+            android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/create_account"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:text="Ingresa los siguientes datos"
+            android:textColor="@color/primary"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_indicator" />
+
+        <!-- Nombre -->
+
+        <TextView
+            android:id="@+id/nombre_label"
+            android:layout_width="54dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="32dp"
+            android:text="Nombre"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
-        <!-- Nombres -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nombres_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="340dp"
-            android:layout_height="62dp"
-            android:layout_marginTop="24dp"
-            android:hint="@string/nombres"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
+        <EditText
+            android:id="@+id/nombres_edit_text"
+            android:layout_width="354dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input_field_background"
+            android:hint="Ingresa tu nombre"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/text_secondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subtitle_text">
+            app:layout_constraintTop_toBottomOf="@+id/nombre_label" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nombres_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:inputType="textPersonName" />
+        <!-- Apellido -->
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Apellidos -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/apellidos_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="337dp"
-            android:layout_height="63dp"
+        <TextView
+            android:id="@+id/apellido_label"
+            android:layout_width="59dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="24dp"
-            android:hint="@string/apellidos"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
+            android:text="Apellido"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nombres_edit_text" />
+
+        <EditText
+            android:id="@+id/apellidos_edit_text"
+            android:layout_width="353dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input_field_background"
+            android:hint="Ingresa tu apellido"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/text_secondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nombres_input_layout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/apellidos_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:inputType="textPersonName" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/apellido_label" />
 
         <!-- DNI -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dni_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="335dp"
-            android:layout_height="69dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/dni"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
+
+        <TextView
+            android:id="@+id/dni_label"
+            android:layout_width="33dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:text="DNI"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apellidos_input_layout">
+            app:layout_constraintTop_toBottomOf="@+id/apellidos_edit_text" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dni_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="8" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/dni_edit_text"
+            android:layout_width="156dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/input_field_background"
+            android:hint="Ingresa tu dni"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/text_secondary"
+            app:layout_constraintEnd_toStartOf="@+id/fecha_nacimiento_edit_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dni_label"
+            app:layout_constraintWidth_percent="0.48" />
 
         <!-- Fecha de Nacimiento -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fecha_nacimiento_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="343dp"
-            android:layout_height="63dp"
+
+        <TextView
+            android:id="@+id/fecha_nacimiento_label"
+            android:layout_width="135dp"
+            android:layout_height="24dp"
             android:layout_marginTop="16dp"
-            android:hint="@string/fecha_nacimiento"
-            app:boxStrokeColor="@color/primary"
-            app:endIconDrawable="@android:drawable/ic_menu_recent_history"
-            app:endIconMode="custom"
-            app:hintTextColor="@color/primary"
+            android:layout_marginEnd="48dp"
+            android:text="Fecha de nacimiento"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dni_input_layout">
+            app:layout_constraintTop_toBottomOf="@+id/apellidos_edit_text" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fecha_nacimiento_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="false"
-                android:inputType="date" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Edad -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edad_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="343dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/edad"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
+        <EditText
+            android:id="@+id/fecha_nacimiento_edit_text"
+            android:layout_width="167dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input_field_background"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="DD / MM / YY"
+            android:inputType="date"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/text_secondary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fecha_nacimiento_input_layout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edad_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:inputType="number"
-                android:maxLength="3" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Provincia -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/provincia_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="345dp"
-            android:layout_height="61dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/provincia"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edad_input_layout">
-
-            <AutoCompleteTextView
-                android:id="@+id/provincia_auto_complete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Ciudad -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ciudad_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="344dp"
-            android:layout_height="69dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/ciudad"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/provincia_input_layout">
-
-            <AutoCompleteTextView
-                android:id="@+id/ciudad_auto_complete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Distrito -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/distrito_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="344dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/distrito"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ciudad_input_layout">
-
-            <AutoCompleteTextView
-                android:id="@+id/distrito_auto_complete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintStart_toEndOf="@+id/dni_edit_text"
+            app:layout_constraintTop_toBottomOf="@+id/fecha_nacimiento_label"
+            app:layout_constraintWidth_percent="0.48" />
 
         <!-- Dirección -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/direccion_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="342dp"
-            android:layout_height="56dp"
+
+        <TextView
+            android:id="@+id/direccion_label"
+            android:layout_width="64dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="16dp"
-            android:hint="@string/direccion"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Direccion"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/distrito_input_layout">
+            app:layout_constraintTop_toBottomOf="@+id/dni_edit_text" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/direccion_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:maxLines="2" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Oficio -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/oficio_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="338dp"
-            android:layout_height="62dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/oficio"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/direccion_input_layout">
-
-            <AutoCompleteTextView
-                android:id="@+id/oficio_auto_complete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Botón Registrarse -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/registrarse_button"
+        <EditText
+            android:id="@+id/direccion_edit_text"
             android:layout_width="349dp"
-            android:layout_height="51dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input_field_background"
+            android:hint="Ingresa tu direccion"
+            android:inputType="textPostalAddress"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/text_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/direccion_label" />
+
+        <!-- Distrito -->
+
+        <TextView
+            android:id="@+id/distrito_label"
+            android:layout_width="50dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:text="Distrito"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/direccion_edit_text" />
+
+        <EditText
+            android:id="@+id/distrito_edit_text"
+            android:layout_width="358dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input_field_background"
+            android:hint="Ingresa tu distrito"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="@color/text_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/distrito_label" />
+
+        <!-- Botón Continuar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/continuar_button"
+            android:layout_width="347dp"
+            android:layout_height="47dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
-            android:text="@string/register"
+            android:text="Continuar"
+            android:textColor="@color/white"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:backgroundTint="@color/primary"
             app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/oficio_input_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/distrito_edit_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

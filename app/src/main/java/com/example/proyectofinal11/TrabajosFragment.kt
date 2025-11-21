@@ -6,10 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-/**
- * Fragment de Trabajos
- * Muestra los trabajos del usuario
- */
 class TrabajosFragment : Fragment() {
     
     override fun onCreateView(

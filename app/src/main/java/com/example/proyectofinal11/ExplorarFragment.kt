@@ -47,7 +47,6 @@ class ExplorarFragment : Fragment() {
     private fun performSearch(query: String) {
 
         if (query.isNotEmpty()) {
-            // TODO: Implementar búsqueda de profesionales
 
         }
     }

@@ -11,12 +11,11 @@ class PantallaInicialActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // Aca se muestra la pantalla Incial Miyuki
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, InicioSesionActivity::class.java)
             startActivity(intent)
             finish()
-        }, 2000) // y aca la cantidad de segundos que queremos
+        }, 2000)
     }
 }
 

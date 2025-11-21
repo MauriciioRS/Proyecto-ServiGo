@@ -8,10 +8,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-/**
- * Pantalla principal de la aplicación ServiGo
- * Contiene la barra de navegación inferior con 5 pestañas
- */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -21,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         
-        // Ocultar ActionBar completamente
         supportActionBar?.hide()
         
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -32,25 +27,23 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-
-        loadFragment(InicioFragment())
-
+        loadFragment(ExplorarFragment())
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_inicio -> {
-                    loadFragment(InicioFragment())
-                    true
-                }
                 R.id.nav_explorar -> {
                     loadFragment(ExplorarFragment())
                     true
                 }
-                R.id.nav_trabajos -> {
+                R.id.nav_favoritos -> {
                     loadFragment(TrabajosFragment())
                     true
                 }
-                R.id.nav_mensajes -> {
+                R.id.nav_trabajo -> {
+                    loadFragment(TrabajosFragment())
+                    true
+                }
+                R.id.nav_mensaje -> {
                     loadFragment(MensajesFragment())
                     true
                 }
@@ -73,4 +66,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: android.view.Menu?): Boolean {
         return false
     }
+    
+    override fun onPrepareOptionsMenu(menu: android.view.Menu?): Boolean {
+        return false
+    }
 }
+

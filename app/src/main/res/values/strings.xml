@@ -4,6 +4,7 @@
     <!-- Splash Screen -->
     <string name="servigo">ServiGo</string>
     <string name="slogan">Conectando con profesionales de confianza</string>
+    <string name="welcome_message">Bienvenido a ServiGO, esperemos\nque te sea util este sistema de\ncentralizacion de oficioso</string>
     
     <!-- Onboarding -->
     <string name="onboarding_title_1">Publicidad</string>
@@ -20,6 +21,11 @@
     <string name="login">Iniciar Sesión</string>
     <string name="register">Registrarse</string>
     <string name="or">O</string>
+    <string name="or_continue_with">O continúa con</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="dont_have_account">¿No tienes una cuenta?</string>
+    <string name="register_here">Regístrate</string>
     
     <!-- Registro -->
     <string name="create_account">Crea tu cuenta</string>
@@ -33,13 +39,22 @@
     <string name="distrito">Distrito</string>
     <string name="direccion">Dirección</string>
     <string name="oficio">Oficio</string>
+    <string name="tipo_cuenta">Tipo de cuenta</string>
+    <string name="cliente">Cliente</string>
+    <string name="ambos">Ambos</string>
+    <string name="contratista">Contratista</string>
+    <string name="confirmar_password">Confirmar contraseña</string>
+    <string name="continuar">Continuar</string>
     
     <!-- Bottom Navigation -->
     <string name="inicio">Inicio</string>
     <string name="explorar">Explorar</string>
     <string name="trabajos">Trabajos</string>
+    <string name="trabajo">Trabajo</string>
     <string name="mensajes">Mensajes</string>
+    <string name="mensaje">Mensaje</string>
     <string name="perfil">Perfil</string>
+    <string name="favoritos">Favoritos</string>
     
     <!-- Perfil -->
     <string name="foto_perfil">Foto de perfil</string>
@@ -62,4 +77,9 @@
     <!-- Búsqueda -->
     <string name="buscar_profesionales">Buscar profesionales...</string>
     <string name="busca_trabajos">Busca trabajos cerca de ti</string>
+    <string name="ver_perfil">Ver perfil</string>
+    <string name="user">User</string>
+    <string name="disponible">Disponible</string>
+    <string name="llamar">Llamar</string>
+    <string name="chat">Chat</string>
 </resources>
