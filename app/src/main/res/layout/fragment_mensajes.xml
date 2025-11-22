@@ -1,24 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:padding="16dp">
+    android:padding="8dp">
 
+    <!-- Título -->
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/txtMensajeTitulo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tus conversaciones"
-        android:textColor="@color/text_secondary"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="16dp" />
+        android:text="Mensaje"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Barra de búsqueda con icono -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buscar"
+        app:startIconDrawable="@android:drawable/ic_menu_search">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Tabs -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutMensajes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/primary"
+        app:tabSelectedTextColor="@color/primary">
 
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_todos"
+            android:text="@string/tab_todos" />
 
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_pendiente"
+            android:text="@string/tab_pendiente" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_proceso"
+            android:text="@string/tab_proceso" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_terminado"
+            android:text="@string/tab_terminado" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <!-- Recycler -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMensajes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

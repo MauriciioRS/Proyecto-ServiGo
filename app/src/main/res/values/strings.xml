@@ -5,7 +5,7 @@
     <string name="servigo">ServiGo</string>
     <string name="slogan">Conectando con profesionales de confianza</string>
     <string name="welcome_message">Bienvenido a ServiGO, esperemos\nque te sea util este sistema de\ncentralizacion de oficioso</string>
-    
+
     <!-- Onboarding -->
     <string name="onboarding_title_1">Publicidad</string>
     <string name="onboarding_desc_1">Descubre los mejores servicios locales con descuentos exclusivos y ofertas especiales solo para usuarios de ServiGo.</string>
@@ -82,4 +82,26 @@
     <string name="disponible">Disponible</string>
     <string name="llamar">Llamar</string>
     <string name="chat">Chat</string>
+
+
+    <string name="titulo_oficio">Oficio - caso</string>
+    <string name="usuario_generico">User</string>
+    <string name="fecha_generica">10 de Noviembre, 2025</string>
+    <string name="precio_generico">S/50.00</string>
+    <string name="estado_finalizado">Finalizado</string>
+    <string name="btn_ver_detalles">Ver Detalles</string>
+    <string name="desc_avatar">Avatar del usuario</string>
+
+
+    <!-- textos demo -->
+    <string name="demo_nombre">Nombre - Profesión</string>
+    <string name="demo_hora">1h</string>
+    <string name="demo_mensaje">Este es un mensaje de prueba</string>
+    <string name="tab_todos">Todos</string>
+    <string name="demo_status">Terminado</string>
+    <string name="tab_pendiente">Pendiente</string>
+    <string name="tab_proceso">Proceso</string>
+    <string name="tab_terminado">Terminado</string>
+
 </resources>
+
