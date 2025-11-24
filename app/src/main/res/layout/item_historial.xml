@@ -71,18 +71,19 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="end">
 
             <TextView
                 android:id="@+id/txtEstado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_estado_finalizado"
                 android:padding="6dp"
                 android:text="Finalizado"
-                android:textSize="12sp"
-                android:background="@drawable/bg_estado_finalizado"
+                android:gravity="center"
                 android:textColor="@color/green"
-                android:layout_marginBottom="10dp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnDetalles"

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:columnCount="2"
+    android:rowCount="3"
+    android:alignmentMode="alignMargins"
+    android:rowOrderPreserved="false">
+
+    <ImageView
+        android:src="@drawable/ic_profile_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:src="@drawable/ic_profile_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:src="@drawable/ic_profile_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:src="@drawable/ic_profile_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop" />
+
+</GridLayout>

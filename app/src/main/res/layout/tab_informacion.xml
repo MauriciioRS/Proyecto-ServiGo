@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Acerca de mí"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#000"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gasfiter profesional con más de 15 años de experiencia."
+            android:textColor="#555"
+            android:textSize="14sp" />
+
+        <!-- TARJETA 1 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="#E8F0FE"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_experiencia"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Experiencia: 15 años"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginStart="12dp" />
+        </LinearLayout>
+
+        <!-- TARJETA 2 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="#E8F0FE"
+            android:padding="16dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_location"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zonas: Cercado de Lima"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+        <!-- TARJETA 3 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="#E8F0FE"
+            android:padding="16dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_certificado"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Certificado SEC"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+        <!-- TARJETA 4 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="#E8F0FE"
+            android:padding="16dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_services"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instalación, Reparación, Mantenimiento"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -3,57 +3,61 @@ package com.example.proyectofinal11.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofinal11.R
-import com.example.proyectofinal11.models.Mensaje
+import com.example.proyectofinal11.data.local.entity.MensajeEntity
 
+// Fíjate que el constructor SOLO pide la función onClick. No pide una lista.
 class MensajesAdapter(
-    private var lista: MutableList<Mensaje>,
-    private val onClick: (Mensaje) -> Unit = {}
-) : RecyclerView.Adapter<MensajesAdapter.ViewHolder>() {
+    private val onClick: (MensajeEntity) -> Unit
+) : ListAdapter<MensajeEntity, MensajesAdapter.ViewHolder>(MensajeDiffCallback()) {
 
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val imgAvatar: ImageView = v.findViewById(R.id.imgAvatar)
-        val tvNombre: TextView = v.findViewById(R.id.tvNombre)
-        val tvHora: TextView = v.findViewById(R.id.tvHora)
-        val tvMensaje: TextView = v.findViewById(R.id.tvMensaje)
-        val tvStatus: TextView = v.findViewById(R.id.tvStatus)
-        val tvUnread: TextView = v.findViewById(R.id.tvUnreadCount)
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val tvNombre: TextView = view.findViewById(R.id.tvNombre)
+        private val tvMensaje: TextView = view.findViewById(R.id.tvMensaje)
+        private val tvHora: TextView = view.findViewById(R.id.tvHora)
+        private val tvStatus: TextView = view.findViewById(R.id.tvStatus)
+        private val tvUnreadCount: TextView = view.findViewById(R.id.tvUnreadCount)
+
+        fun bind(item: MensajeEntity) {
+            val displayName = if (item.titulo.isNotBlank() && item.titulo != "Trabajo ${item.id}") {
+                item.titulo
+            } else {
+                item.nombreProfesional // Este es el nombre del campo en MensajeEntity
+            }
+
+            tvNombre.text = "$displayName - ${item.oficioProfesional}"
+            tvMensaje.text = item.ultimoMensaje
+            tvHora.text = item.hora
+            tvStatus.text = item.estado
+
+            tvUnreadCount.isVisible = item.noLeidos > 0
+            tvUnreadCount.text = item.noLeidos.toString()
+
+            itemView.setOnClickListener { onClick(item) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_mensaje, parent, false)
-        return ViewHolder(v)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mensaje, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = lista[position]
-        holder.tvNombre.text = item.displayName
-        holder.tvHora.text = item.hora
-        holder.tvMensaje.text = item.ultimoMensaje
-        holder.tvStatus.text = item.estado
+        holder.bind(getItem(position))
+    }
+}
 
-        // Mostrar/u ocultar contador
-        if (item.unreadCount > 0) {
-            holder.tvUnread.visibility = View.VISIBLE
-            holder.tvUnread.text = item.unreadCount.toString()
-        } else {
-            holder.tvUnread.visibility = View.GONE
-        }
-
-        // Avatar: por defecto usamos circle_avatar; si quieres cargar desde URL usa Coil/Glide
-        holder.imgAvatar.setImageResource(R.drawable.circle_avatar)
-
-        holder.itemView.setOnClickListener { onClick(item) }
+class MensajeDiffCallback : DiffUtil.ItemCallback<MensajeEntity>() {
+    override fun areItemsTheSame(oldItem: MensajeEntity, newItem: MensajeEntity): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun getItemCount(): Int = lista.size
-
-    fun updateList(newList: List<Mensaje>) {
-        lista.clear()
-        lista.addAll(newList)
-        notifyDataSetChanged()
+    override fun areContentsTheSame(oldItem: MensajeEntity, newItem: MensajeEntity): Boolean {
+        return oldItem == newItem
     }
 }

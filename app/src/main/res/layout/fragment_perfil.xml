@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:paddingTop="0dp">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,17 +14,19 @@
         <!-- Top appbar -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
             android:background="#1976D2"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <ImageView
-                android:contentDescription="@null"
                 android:id="@+id/back_button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
+                android:padding="8dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_back" />
 
             <TextView
@@ -43,9 +44,7 @@
                 android:layout_height="40dp" />
         </LinearLayout>
 
-        <!-- Header with avatar -->
-
-        <!-- SECCIÓN DE OPCIONES -->
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,10 +67,10 @@
                     android:layout_width="84dp"
                     android:layout_height="84dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/circle_avatar"
-                    android:padding="8dp"
+                    android:contentDescription="@null"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_profile_placeholder" />
+                    android:padding="8dp"
+                    android:src="@drawable/ic_user" />
             </FrameLayout>
 
             <TextView
@@ -79,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Mario Pérez"
+                android:text="@string/profile_name"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -129,6 +128,7 @@
                 app:cornerRadius="8dp" />
         </LinearLayout>
 
+        <!-- OPCIONES -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -137,17 +137,20 @@
             android:paddingRight="16dp"
             android:layout_marginTop="8dp">
 
-
-            <!-- Opción 1 - Información Personal -->
+            <!-- Información Personal -->
             <LinearLayout
                 android:id="@+id/option_info"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
+                android:minHeight="56dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/option_card">
+                android:background="@drawable/option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_width="36dp"
@@ -167,65 +170,81 @@
 
                 <ImageView
                     android:id="@+id/chevron_info"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:padding="6dp"
                     android:src="@drawable/ic_chevron"
-                    android:clickable="true"
-                    android:focusable="true" />
-
+                    app:tint="#666666" />
             </LinearLayout>
 
-            <!-- CONTENEDOR DEL ACORDEÓN -->
+           <!-- CONTENEDOR DEL ACORDEÓN -->
             <LinearLayout
                 android:id="@+id/info_container"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:padding="12dp">
+                android:background="@drawable/option_card"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:padding="16dp">
 
+                <!-- TextViews con IDs CORREGIDOS -->
                 <TextView
-                    android:id="@+id/email_text"
+                    android:id="@+id/email_text_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="correo@correo.com" />
+                    android:text="correo@correo.com"
+                    android:textColor="@color/text_primary"/>
 
                 <TextView
-                    android:id="@+id/phone_text"
+                    android:id="@+id/phone_text_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="987654321" />
+                    android:layout_marginTop="8dp"
+                    android:text="987654321"
+                    android:textColor="@color/text_primary"/>
 
                 <TextView
-                    android:id="@+id/ubicacion_text"
+                    android:id="@+id/ubicacion_text_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ubicación aquí" />
+                    android:layout_marginTop="8dp"
+                    android:text="Ubicación aquí"
+                    android:textColor="@color/text_primary"/>
 
                 <TextView
-                    android:id="@+id/experiencia_text"
+                    android:id="@+id/experiencia_text_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Experiencia aquí" />
+                    android:layout_marginTop="8dp"
+                    android:text="Experiencia aquí"
+                    android:textColor="@color/text_primary"/>
 
                 <TextView
-                    android:id="@+id/reviews_text"
+                    android:id="@+id/reviews_text_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reseñas..." />
+                    android:layout_marginTop="8dp"
+                    android:text="Reseñas..."
+                    android:textColor="@color/text_primary"/>
             </LinearLayout>
 
 
-            <!-- Opción 2 - Pagos -->
+            <!-- Pagos -->
             <LinearLayout
                 android:id="@+id/option_payments"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
+                android:minHeight="56dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/option_card">
+                android:background="@drawable/option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_width="36dp"
@@ -245,22 +264,41 @@
 
                 <ImageView
                     android:id="@+id/chevron_payments"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/ic_chevron" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_chevron"
+                    app:tint="#666666" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/payments_container"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Información de pagos..." />
 
-            <!-- Opción 3 - Notificaciones -->
+                <!-- Agrega aquí el contenido específico para pagos -->
+            </LinearLayout>
+            <!-- Notificaciones -->
             <LinearLayout
                 android:id="@+id/option_notifications"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
+                android:minHeight="56dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/option_card">
+                android:background="@drawable/option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_width="36dp"
@@ -280,13 +318,28 @@
 
                 <ImageView
                     android:id="@+id/chevron_notifications"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/ic_chevron" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_chevron"
+                    app:tint="#666666" />
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/notifications_container"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Configuración de notificaciones..." />
 
+            <!-- Agrega aquí el contenido específico para notificaciones -->
+        </LinearLayout>
         <!-- Mis Publicaciones -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -346,7 +399,6 @@
             </LinearLayout>
         </LinearLayout>
 
-
         <!-- Ayuda y Cerrar Sesión -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -372,7 +424,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="Cerrar Sesión"
-                android:backgroundTint="#D32F2F"
+                app:backgroundTint="#FF0000"
                 android:textColor="#FFFFFF"
                 app:cornerRadius="8dp"
                 android:icon="@drawable/ic_logout"
@@ -381,5 +433,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</ScrollView>

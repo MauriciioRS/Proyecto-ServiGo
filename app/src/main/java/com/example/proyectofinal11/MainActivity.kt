@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        
+
         supportActionBar?.hide()
-        
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -27,48 +27,39 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        loadFragment(ExplorarFragment())
+        // Carga el primer fragmento al iniciar
+        if (savedInstanceState == null) {
+            loadFragment(ExplorarFragment())
+        }
 
         bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_explorar -> {
-                    loadFragment(ExplorarFragment())
-                    true
-                }
-                R.id.nav_favoritos -> {
-                    loadFragment(FavoritosFragment())
-                    true
-                }
-                R.id.nav_trabajo -> {
-                    loadFragment(TrabajosFragment())
-                    true
-                }
-                R.id.nav_mensaje -> {
-                    loadFragment(MensajesFragment())
-                    true
-                }
-                R.id.nav_perfil -> {
-                    loadFragment(PerfiLAdapter())
-                    true
-                }
-                else -> false
+            val fragment = when (item.itemId) {
+                R.id.nav_explorar -> ExplorarFragment()
+                R.id.nav_favoritos -> FavoritosFragment()
+                R.id.nav_trabajo -> TrabajosFragment()
+                R.id.nav_mensaje -> MensajesFragment()
+                R.id.nav_perfil -> PerfilFragment() // <-- ¡CAMBIO REALIZADO AQUÍ!
+                else -> null
             }
+            fragment?.let {
+                loadFragment(it)
+                true
+            } ?: false
         }
     }
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
+            .replace(R.id.main, fragment)
             .commit()
     }
 
-
+    // Estos métodos no son necesarios para la funcionalidad básica de navegación
     override fun onCreateOptionsMenu(menu: android.view.Menu?): Boolean {
         return false
     }
-    
+
     override fun onPrepareOptionsMenu(menu: android.view.Menu?): Boolean {
         return false
     }
 }
-

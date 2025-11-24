@@ -32,6 +32,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Tabs -->
+    <!-- Tabs -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutMensajes"
         android:layout_width="match_parent"
@@ -41,21 +42,33 @@
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_todos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/tab_todos" />
+
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_pendiente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/tab_pendiente" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_proceso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/tab_proceso" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_terminado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/tab_terminado" />
 
+
+
     </com.google.android.material.tabs.TabLayout>
+
 
     <!-- Recycler -->
     <androidx.recyclerview.widget.RecyclerView

@@ -104,6 +104,13 @@
     <string name="tab_terminado">Terminado</string>
 
     <string name="profile_title">Mi Perfil</string>
+    <string name="profile_name">Mario Pérez</string>
+    <string name="add_to_favorites">Añadir a favoritos</string>
+
+    <string name="background_image_of_professional">Imagen de fondo del profesional</string>
+    <string name="imagen_fondo_desc">Imagen decorativa de fondo</string>
+    <string name="favorito_desc">Favorito</string>
+
 
 
 </resources>

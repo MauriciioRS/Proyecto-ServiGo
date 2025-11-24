@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.Toast // Importante para mostrar mensajes
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -44,8 +45,31 @@ class RegistroActivity : AppCompatActivity() {
             showDatePicker()
         }
 
+        // ===== CÓDIGO UNIDO Y MEJORADO =====
         continuarButton.setOnClickListener {
-            val intent = Intent(this, Registro2Activity::class.java)
+            // Recolectamos los datos del primer paso
+            val nombre = nombresEditText.text.toString().trim()
+            val apellido = apellidosEditText.text.toString().trim()
+            val dni = dniEditText.text.toString().trim()
+            val fechaNac = fechaNacimientoEditText.text.toString().trim()
+            val direccion = direccionEditText.text.toString().trim()
+            val distrito = distritoEditText.text.toString().trim()
+
+            // Validación simple para asegurar que ningún campo esté vacío
+            if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty() || fechaNac.isEmpty() || direccion.isEmpty() || distrito.isEmpty()) {
+                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener // Detiene la ejecución si algo falta
+            }
+
+            // Creamos el Intent y pasamos los datos como "extras"
+            val intent = Intent(this, Registro2Activity::class.java).apply {
+                putExtra("NOMBRE", nombre)
+                putExtra("APELLIDO", apellido)
+                putExtra("DNI", dni)
+                putExtra("FECHA_NAC", fechaNac)
+                putExtra("DIRECCION", direccion)
+                putExtra("DISTRITO", distrito)
+            }
             startActivity(intent)
         }
     }
@@ -59,22 +83,18 @@ class RegistroActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                val fechaFormateada = String.format("%02d / %02d / %02d", selectedDay, selectedMonth + 1, selectedYear % 100)
+                val fechaFormateada = String.format("%02d / %02d / %04d", selectedDay, selectedMonth + 1, selectedYear)
                 fechaNacimientoEditText.setText(fechaFormateada)
             },
             year,
             month,
             day
         )
-        
+
         datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
         calendar.add(Calendar.YEAR, -100)
         datePickerDialog.datePicker.minDate = calendar.timeInMillis
-        
+
         datePickerDialog.show()
     }
 }
-
-
-
-

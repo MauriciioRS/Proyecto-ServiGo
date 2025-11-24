@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="24dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="257dp">
+
+        <!-- ===== SECCIÓN DE IMAGEN DE FONDO ===== -->
+        <!-- Se ha ajustado la altura y se ha añadido un fondo para placeholders -->
+        <ImageView
+            android:id="@+id/imagen_fondo"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:background="?attr/colorPrimaryVariant"
+            android:contentDescription="@string/background_image_of_professional"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <!-- Gradiente para asegurar que el texto sea legible sobre la imagen -->
+
+        <!-- ===== TARJETA DE INFORMACIÓN ===== -->
+        <!-- Se ha movido aquí para que no tape el botón 'Ver Perfil' -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient_scrim"
+            app:layout_constraintBottom_toTopOf="@+id/info_container"
+            app:layout_constraintEnd_toEndOf="@id/imagen_fondo"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/imagen_fondo"
+            app:layout_constraintTop_toTopOf="@id/imagen_fondo"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <LinearLayout
+            android:id="@+id/info_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_card_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imagen_fondo">
+
+            <!-- Avatar del Profesional -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/circle_avatar"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="?attr/colorSurface"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="2dp"
+                tools:src="@tools:sample/avatars" />
+
+            <!-- Nombre y Oficio -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nombre_profesional"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Juan Pérez" />
+
+                <TextView
+                    android:id="@+id/oficio_profesional"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="Electricista" />
+
+            </LinearLayout>
+
+            <!-- Botón de Favorito -->
+            <ImageView
+                android:id="@+id/favorito_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/favorito_desc"
+                android:padding="6dp"
+                app:tint="?attr/colorPrimary"
+                tools:src="@drawable/ic_heart_outline" />
+        </LinearLayout>
+
+        <!-- ===== BOTÓN FLOTANTE "VER PERFIL" ===== -->
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btn_ver_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:text="@string/ver_perfil"
+            app:backgroundTint="#AFB6FB"
+            app:iconTint="@color/background"
+            app:layout_anchorGravity="bottom|end"
+            app:layout_constraintBottom_toTopOf="@id/info_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/info_container"
+            app:tint="@color/background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

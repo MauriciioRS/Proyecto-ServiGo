@@ -1,5 +1,8 @@
 package com.example.proyectofinal11
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -21,63 +24,65 @@ class PerfilFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return inflater.inflate(R.layout.fragment_perfil, container, false)
+    }
 
-        val view = inflater.inflate(R.layout.fragment_perfil, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // ==== OBTENER USUARIO ====
         val usuario: Usuario = UsuarioData.obtenerUsuario()
 
-        // ===== REFERENCIAS =====
+        // ===== REFERENCIAS DE LA CABECERA =====
         val nameText = view.findViewById<TextView>(R.id.name_text)
         val professionText = view.findViewById<TextView>(R.id.profession_text)
-        val emailText = view.findViewById<TextView>(R.id.email_text)
-        val phoneText = view.findViewById<TextView>(R.id.phone_text)
-        val ubicacionText = view.findViewById<TextView>(R.id.ubicacion_text)
-        val experienciaText = view.findViewById<TextView>(R.id.experiencia_text)
         val starRating = view.findViewById<TextView>(R.id.star_rating)
         val ratingValue = view.findViewById<TextView>(R.id.rating_value)
-        val reviewsText = view.findViewById<TextView>(R.id.reviews_text)
         val profileImage = view.findViewById<ImageView>(R.id.profile_image)
         val logoutButton = view.findViewById<MaterialButton>(R.id.logout_button)
 
-        // ==== MOSTRAR DATOS ====
+        // ===== REFERENCIAS DEL ACORDEÓN (CON NUEVOS IDs) =====
+        val emailTextDetail = view.findViewById<TextView>(R.id.email_text_detail)
+        val phoneTextDetail = view.findViewById<TextView>(R.id.phone_text_detail)
+        val ubicacionTextDetail = view.findViewById<TextView>(R.id.ubicacion_text_detail)
+        val experienciaTextDetail = view.findViewById<TextView>(R.id.experiencia_text_detail)
+        val reviewsTextDetail = view.findViewById<TextView>(R.id.reviews_text_detail)
+
+
+        // ==== MOSTRAR DATOS EN LA CABECERA ====
         nameText.text = usuario.nombre
         professionText.text = usuario.oficio
-        emailText.text = usuario.email
-        phoneText.text = usuario.telefono
-        ubicacionText.text = usuario.ubicacion
-        experienciaText.text = usuario.experiencia
-
         ratingValue.text = usuario.rating.toString()
         starRating.text = generarEstrellas(usuario.rating)
-        reviewsText.text = "${usuario.reviews} reseñas"
+        profileImage.setImageResource(R.drawable.ic_user) // Imagen por defecto
 
-        // Imagen por defecto
-        profileImage.setImageResource(R.drawable.ic_user)
+        // ==== MOSTRAR DATOS EN EL ACORDEÓN ====
+        emailTextDetail.text = "Email: ${usuario.email}"
+        phoneTextDetail.text = "Teléfono: ${usuario.telefono}"
+        ubicacionTextDetail.text = "Ubicación: ${usuario.ubicacion}"
+        experienciaTextDetail.text = "Experiencia: ${usuario.experiencia}"
+        reviewsTextDetail.text = "Reseñas totales: ${usuario.reviews}"
 
-        // ========== ACORDEÓN ==========
+
+        // ========== LÓGICA DEL ACORDEÓN ==========
+
+        // --- Referencias de vistas del acordeón ---
         val optionInfo = view.findViewById<LinearLayout>(R.id.option_info)
-        val chevronInfo = view.findViewById<ImageView>(R.id.chevron_info)
         val infoContainer = view.findViewById<LinearLayout>(R.id.info_container)
+        val chevronInfo = view.findViewById<ImageView>(R.id.chevron_info)
 
-        var infoOpen = false
+        val optionPayments = view.findViewById<LinearLayout>(R.id.option_payments)
+        val paymentsContainer = view.findViewById<LinearLayout>(R.id.payments_container)
+        val chevronPayments = view.findViewById<ImageView>(R.id.chevron_payments)
 
-        fun toggleInfo() {
-            infoOpen = !infoOpen
+        val optionNotifications = view.findViewById<LinearLayout>(R.id.option_notifications)
+        val notificationsContainer = view.findViewById<LinearLayout>(R.id.notifications_container)
+        val chevronNotifications = view.findViewById<ImageView>(R.id.chevron_notifications)
 
-            if (infoOpen) {
-                infoContainer.visibility = View.VISIBLE
-                chevronInfo.animate().rotation(180f).setDuration(200).start()
-                chevronInfo.setColorFilter(Color.parseColor("#1976D2")) // azul
-            } else {
-                infoContainer.visibility = View.GONE
-                chevronInfo.animate().rotation(0f).setDuration(200).start()
-                chevronInfo.setColorFilter(Color.parseColor("#666666")) // gris original
-            }
-        }
-
-        optionInfo.setOnClickListener { toggleInfo() }
-        chevronInfo.setOnClickListener { toggleInfo() }
+        // ===== LISTENERS =====
+        optionInfo.setOnClickListener { toggleAccordion(infoContainer, chevronInfo, view) }
+        optionPayments.setOnClickListener { toggleAccordion(paymentsContainer, chevronPayments, view) }
+        optionNotifications.setOnClickListener { toggleAccordion(notificationsContainer, chevronNotifications, view) }
 
         // ========== LOGOUT ==========
         logoutButton.setOnClickListener {
@@ -86,8 +91,50 @@ class PerfilFragment : Fragment() {
             startActivity(intent)
             requireActivity().finish()
         }
+    }
 
-        return view
+    // --- Función de animación genérica y reutilizable ---
+    private fun toggleAccordion(container: View, chevron: ImageView, rootView: View) {
+        val isVisible = container.visibility == View.VISIBLE
+
+        // Girar la flecha y cambiar color
+        val rotationAngle = if (isVisible) 0f else 180f
+        val color = if (isVisible) Color.parseColor("#666666") else Color.parseColor("#1976D2")
+        chevron.animate().rotation(rotationAngle).setDuration(300).start()
+        chevron.setColorFilter(color)
+
+        // Animar la altura
+        if (isVisible) {
+            // Colapsar
+            val initialHeight = container.height
+            val animator = ValueAnimator.ofInt(initialHeight, 0)
+            animator.duration = 300
+            animator.addUpdateListener {
+                container.layoutParams.height = it.animatedValue as Int
+                container.requestLayout()
+            }
+            animator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    container.visibility = View.GONE
+                }
+            })
+            animator.start()
+        } else {
+            // Expandir
+            container.measure(View.MeasureSpec.makeMeasureSpec(rootView.width, View.MeasureSpec.EXACTLY), View.MeasureSpec.UNSPECIFIED)
+            val targetHeight = container.measuredHeight
+
+            container.layoutParams.height = 0
+            container.visibility = View.VISIBLE
+
+            val animator = ValueAnimator.ofInt(0, targetHeight)
+            animator.duration = 300
+            animator.addUpdateListener {
+                container.layoutParams.height = it.animatedValue as Int
+                container.requestLayout()
+            }
+            animator.start()
+        }
     }
 
     private fun generarEstrellas(rating: Double): String {
@@ -96,3 +143,4 @@ class PerfilFragment : Fragment() {
         return filled + empty
     }
 }
+    
