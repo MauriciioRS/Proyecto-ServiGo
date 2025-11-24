@@ -1,20 +1,18 @@
 package com.example.proyectofinal11
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.proyectofinal11.data.UsuarioData
 import com.example.proyectofinal11.models.Usuario
 import com.google.android.material.button.MaterialButton
+import android.widget.TextView
+import android.widget.ImageView
 
-class PerfilFragment : Fragment() {
+class PerfiLAdapter : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,10 +22,10 @@ class PerfilFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_perfil, container, false)
 
-        // ==== OBTENER USUARIO ====
+        // Obtener usuario
         val usuario: Usuario = UsuarioData.obtenerUsuario()
 
-        // ===== REFERENCIAS =====
+        // Referencias
         val nameText = view.findViewById<TextView>(R.id.name_text)
         val professionText = view.findViewById<TextView>(R.id.profession_text)
         val emailText = view.findViewById<TextView>(R.id.email_text)
@@ -40,7 +38,7 @@ class PerfilFragment : Fragment() {
         val profileImage = view.findViewById<ImageView>(R.id.profile_image)
         val logoutButton = view.findViewById<MaterialButton>(R.id.logout_button)
 
-        // ==== MOSTRAR DATOS ====
+        // Mostrar datos
         nameText.text = usuario.nombre
         professionText.text = usuario.oficio
         emailText.text = usuario.email
@@ -52,39 +50,13 @@ class PerfilFragment : Fragment() {
         starRating.text = generarEstrellas(usuario.rating)
         reviewsText.text = "${usuario.reviews} reseñas"
 
-        // Imagen por defecto
-        profileImage.setImageResource(R.drawable.ic_user)
+        // Imagen sin Glide → imagen por defecto
+        profileImage.setImageResource(R.drawable.ic_user) // Cambia este recurso
 
-        // ========== ACORDEÓN ==========
-        val optionInfo = view.findViewById<LinearLayout>(R.id.option_info)
-        val chevronInfo = view.findViewById<ImageView>(R.id.chevron_info)
-        val infoContainer = view.findViewById<LinearLayout>(R.id.info_container)
-
-        var infoOpen = false
-
-        fun toggleInfo() {
-            infoOpen = !infoOpen
-
-            if (infoOpen) {
-                infoContainer.visibility = View.VISIBLE
-                chevronInfo.animate().rotation(180f).setDuration(200).start()
-                chevronInfo.setColorFilter(Color.parseColor("#1976D2")) // azul
-            } else {
-                infoContainer.visibility = View.GONE
-                chevronInfo.animate().rotation(0f).setDuration(200).start()
-                chevronInfo.setColorFilter(Color.parseColor("#666666")) // gris original
-            }
-        }
-
-        optionInfo.setOnClickListener { toggleInfo() }
-        chevronInfo.setOnClickListener { toggleInfo() }
-
-        // ========== LOGOUT ==========
         logoutButton.setOnClickListener {
             val intent = Intent(requireContext(), InicioSesionActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            requireActivity().finish()
         }
 
         return view

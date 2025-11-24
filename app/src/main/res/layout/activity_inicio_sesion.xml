@@ -11,17 +11,17 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="137dp"
-        android:layout_height="138dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="97dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="50dp"
         android:contentDescription="@string/app_name"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@mipmap/icono"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/primary" />
+        app:tint="@null" />
+
 
     <TextView
         android:id="@+id/app_name_text"

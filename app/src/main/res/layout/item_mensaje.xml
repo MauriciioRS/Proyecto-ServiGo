@@ -92,7 +92,7 @@
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@id/estadoContainer"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="2"
                 android:textColor="@android:color/white"

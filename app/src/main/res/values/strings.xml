@@ -103,5 +103,8 @@
     <string name="tab_proceso">Proceso</string>
     <string name="tab_terminado">Terminado</string>
 
+    <string name="profile_title">Mi Perfil</string>
+
+
 </resources>
 

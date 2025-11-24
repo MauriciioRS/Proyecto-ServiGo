@@ -1,306 +1,384 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:fillViewport="true">
+    android:paddingTop="0dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:orientation="vertical">
 
-        <!-- Foto de Perfil -->
+        <!-- Top appbar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:background="#1976D2"
+            android:gravity="center_vertical">
 
-        <!-- Información Personal -->
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_back" />
 
-        <!-- Botón Cerrar Sesión -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/profile_title"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:gravity="center" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/profile_card"
-            android:layout_width="323dp"
-            android:layout_height="254dp"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.012">
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="316dp"
-                android:layout_height="282dp"
-                android:padding="24dp">
+        <!-- Header with avatar -->
+
+        <!-- SECCIÓN DE OPCIONES -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="8dp">
+
+            <FrameLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp">
+
+                <View
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/circle_avatar" />
 
                 <ImageView
                     android:id="@+id/profile_image"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:contentDescription="@string/foto_perfil"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_avatar"
+                    android:padding="8dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_foreground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/primary" />
+                    android:src="@drawable/ic_profile_placeholder" />
+            </FrameLayout>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/image_card"
-                    android:layout_width="123dp"
-                    android:layout_height="88dp"
-                    app:cardCornerRadius="60dp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/primary_light"
-                    app:strokeWidth="3dp">
+            <TextView
+                android:id="@+id/name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Mario Pérez"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="93dp"
-                        android:contentDescription="@string/foto_perfil"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_launcher_foreground"
-                        app:tint="@color/primary" />
+            <TextView
+                android:id="@+id/profession_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Electricista"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
 
-                </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/name_text"
+                    android:id="@+id/rating_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/nombre_profesional"
+                    android:text="4.8"
                     android:textColor="@color/text_primary"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image_card" />
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/profession_text"
+                    android:id="@+id/star_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/oficio_profesional"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name_text" />
+                    android:layout_marginStart="8dp"
+                    android:text="★★★★★"
+                    android:textColor="#FFC107"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-                <!-- Calificación con Estrellas -->
-                <LinearLayout
-                    android:id="@+id/rating_layout"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_edit_profile"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:text="Editar Perfil"
+                android:textColor="#0D47A1"
+                app:backgroundTint="#E3F2FD"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginTop="8dp">
+
+
+            <!-- Opción 1 - Información Personal -->
+            <LinearLayout
+                android:id="@+id/option_info"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/option_card">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_info"
+                    app:tint="#1976D2" />
+
+                <TextView
+                    android:id="@+id/option_info_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Información Personal"
+                    android:layout_marginStart="12dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary" />
+
+                <ImageView
+                    android:id="@+id/chevron_info"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_chevron"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+            <!-- CONTENEDOR DEL ACORDEÓN -->
+            <LinearLayout
+                android:id="@+id/info_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/email_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/profession_text">
+                    android:text="correo@correo.com" />
 
-                    <TextView
-                        android:id="@+id/rating_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/calificacion"
-                        android:textColor="@color/text_primary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/phone_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="987654321" />
 
-                    <TextView
-                        android:id="@+id/star_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="★★★★★"
-                        android:textColor="@color/accent"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/ubicacion_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ubicación aquí" />
 
-                    <TextView
-                        android:id="@+id/rating_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/rating_45"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/experiencia_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Experiencia aquí" />
 
                 <TextView
                     android:id="@+id/reviews_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/reviews_count"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rating_layout" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/info_card"
-            android:layout_width="340dp"
-            android:layout_height="211dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.648">
-
-            <LinearLayout
-                android:layout_width="344dp"
-                android:layout_height="205dp"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/informacion_personal"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <!-- Email -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/email_label"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/email_ejemplo"
-                        android:textColor="@color/text_primary"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <!-- Teléfono -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/telefono_label"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/telefono_ejemplo"
-                        android:textColor="@color/text_primary"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <!-- Ubicación -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ubicacion_label"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/ubicacion_ejemplo"
-                        android:textColor="@color/text_primary"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <!-- Experiencia -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/experiencia_label"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/experiencia_ejemplo"
-                        android:textColor="@color/text_primary"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
+                    android:text="Reseñas..." />
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logout_button"
-            android:layout_width="0dp"
+            <!-- Opción 2 - Pagos -->
+            <LinearLayout
+                android:id="@+id/option_payments"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/option_card">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_payments"
+                    app:tint="#1976D2" />
+
+                <TextView
+                    android:id="@+id/option_payments_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pagos y Cobros"
+                    android:layout_marginStart="12dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary" />
+
+                <ImageView
+                    android:id="@+id/chevron_payments"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_chevron" />
+            </LinearLayout>
+
+
+            <!-- Opción 3 - Notificaciones -->
+            <LinearLayout
+                android:id="@+id/option_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/option_card">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_notifications"
+                    app:tint="#1976D2" />
+
+                <TextView
+                    android:id="@+id/option_notifications_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Notificaciones"
+                    android:layout_marginStart="12dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary" />
+
+                <ImageView
+                    android:id="@+id/chevron_notifications"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_chevron" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!-- Mis Publicaciones -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/cerrar_sesion"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:backgroundTint="@color/primary"
-            app:cornerRadius="12dp"
-            app:icon="@android:drawable/ic_menu_close_clear_cancel"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/info_card"
-            app:layout_constraintVertical_bias="0.846" />
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginTop="14dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/publications_card"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mis Publicaciones"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:id="@+id/active_services_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3 servicios activos"
+                        android:textSize="12sp"
+                        android:textColor="#1976D2" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Administra los servicios que ofreces a la comunidad."
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginTop="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_manage_publications"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:text="Gestionar Publicaciones"
+                    android:layout_marginTop="12dp"
+                    app:backgroundTint="#1976D2"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!-- Ayuda y Cerrar Sesión -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_help"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="Ayuda y Soporte"
+                android:layout_marginBottom="12dp"
+                app:backgroundTint="#FFFFFF"
+                android:textColor="#1976D2"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logout_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Cerrar Sesión"
+                android:backgroundTint="#D32F2F"
+                android:textColor="#FFFFFF"
+                app:cornerRadius="8dp"
+                android:icon="@drawable/ic_logout"
+                app:iconGravity="textStart"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

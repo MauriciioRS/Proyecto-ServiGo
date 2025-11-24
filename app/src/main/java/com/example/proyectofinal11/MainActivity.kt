@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_perfil -> {
-                    loadFragment(PerfilFragment())
+                    loadFragment(PerfiLAdapter())
                     true
                 }
                 else -> false
