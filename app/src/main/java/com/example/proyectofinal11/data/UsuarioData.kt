@@ -1,7 +1,6 @@
 package com.example.proyectofinal11.data
 
 
-import com.example.proyectofinal11.R
 import com.example.proyectofinal11.models.Usuario
 object UsuarioData {
 
