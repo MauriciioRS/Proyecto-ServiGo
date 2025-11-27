@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Avatar -->
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/circle_avatar"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/desc_avatar"
+            android:scaleType="centerCrop"/>
+
+        <!-- Hora (arriba derecha) -->
+        <TextView
+            android:id="@+id/tvHora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="1h"
+            android:textColor="@color/gray"
+            android:textSize="13sp" />
+
+        <!-- Nombre (arriba izquierda) -->
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgAvatar"
+            android:layout_marginStart="14dp"
+            android:layout_alignTop="@id/tvHora"
+            android:layout_toStartOf="@id/estadoContainer"
+            android:text="Juan Pérez - Gásfiter"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <!-- Hora --> <TextView android:id="@+id/tvHora" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="1h" android:textSize="13sp" android:textColor="@color/gray"/>
+
+        <!-- Último mensaje -->
+        <TextView
+            android:id="@+id/tvMensaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNombre"
+            android:layout_toEndOf="@id/imgAvatar"
+            android:layout_toStartOf="@id/estadoContainer"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="14dp"
+            android:text="Mensaje de ejemplo"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+        <!-- Estado + Botón (derecha alineado) -->
+        <LinearLayout
+            android:id="@+id/estadoContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_estado_finalizado"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="Finalizado"
+                android:textColor="@color/green"
+                android:textSize="12sp"
+                android:layout_marginBottom="6dp"/>
+            <!-- Contador de no leídos (abajo derecha) -->
+            <TextView
+                android:id="@+id/tvUnreadCount"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/estadoContainer"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_unread"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btnDetalles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ver Detalles"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
