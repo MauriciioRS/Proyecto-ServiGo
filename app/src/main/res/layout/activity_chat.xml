@@ -65,7 +65,9 @@
             app:backgroundTint="?attr/colorPrimary"
             app:elevation="2dp"
             app:fabSize="mini"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:contentDescription="Enviar mensaje" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,5 +20,5 @@ data class UsuarioEntity(
     val email: String,
     val tipoCuenta: String, // "Cliente", "Ambos", "Contratista"
     val oficio: String?,    // Puede ser nulo si es solo cliente
-    val contrasena: String  // ¡IMPORTANTE! En una app real, esto debería estar encriptado.
+    val contrasena: String,  // ¡IMPORTANTE! En una app real, esto debería estar encriptado.
 )

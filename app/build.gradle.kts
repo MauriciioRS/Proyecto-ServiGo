@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt") // Esta línea ya la tenías, está perfecta.
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -28,20 +28,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8 // Cambiado a 1.8, es más compatible
-        targetCompatibility = JavaVersion.VERSION_1_8 // Cambiado a 1.8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8" // Cambiado a 1.8
+        jvmTarget = "11"
     }
 }
 
 dependencies {
-    // Glide - para cargar imágenes de forma eficiente
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0") // <-- ESTA LÍNEA ES LA QUE FALTA
-
-    // Dependencias existentes...
+    implementation(libs.glide)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -56,12 +52,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // --- AÑADE LAS DEPENDENCIAS DE ROOM AQUÍ ---
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx) // Para soporte de Coroutines (Flow, suspend fun)
+    ksp(libs.androidx.room.compiler) // Usa 'ksp' para el procesador de anotaciones
 
-    // --- LÍNEAS PARA LA BASE DE DATOS (ROOM) ---
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version") // Para usar corutinas
-    // ---------------------------------------------------------
+
 }
-

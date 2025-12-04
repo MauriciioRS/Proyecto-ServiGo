@@ -16,6 +16,7 @@
         <!-- AVATAR -->
         <ImageView
             android:id="@+id/imgAvatar"
+            android:contentDescription="@null"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/circle_avatar"

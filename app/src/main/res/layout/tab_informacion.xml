@@ -39,6 +39,7 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_experiencia"/>
 
             <TextView
@@ -63,6 +64,7 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_location"/>
 
             <TextView
@@ -87,6 +89,7 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_certificado"/>
 
             <TextView
@@ -110,6 +113,7 @@
 
             <ImageView
                 android:layout_width="28dp"
+                android:contentDescription="@null"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_services"/>
 

@@ -156,6 +156,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/ic_info"
+                    android:contentDescription="@null"
                     app:tint="#1976D2" />
 
                 <TextView
@@ -173,6 +174,7 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:padding="6dp"
+                    android:contentDescription="@null"
                     android:src="@drawable/ic_chevron"
                     app:tint="#666666" />
             </LinearLayout>
@@ -250,6 +252,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/ic_payments"
+                    android:contentDescription="@null"
                     app:tint="#1976D2" />
 
                 <TextView
@@ -267,6 +270,7 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:padding="6dp"
+                    android:contentDescription="@null"
                     android:src="@drawable/ic_chevron"
                     app:tint="#666666" />
             </LinearLayout>
@@ -303,6 +307,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:contentDescription="@null"
                     android:src="@drawable/ic_notifications"
                     app:tint="#1976D2" />
 
@@ -321,6 +326,7 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:padding="6dp"
+                    android:contentDescription="@null"
                     android:src="@drawable/ic_chevron"
                     app:tint="#666666" />
             </LinearLayout>

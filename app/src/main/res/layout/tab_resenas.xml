@@ -26,6 +26,7 @@
         <ImageView
             android:id="@+id/imgAvatar1"
             android:layout_width="50dp"
+            android:contentDescription="@null"
             android:layout_height="50dp"
             android:src="@drawable/circle_avatar"
             android:scaleType="centerCrop"
@@ -69,6 +70,7 @@
         <!-- Avatar -->
         <ImageView
             android:id="@+id/imgAvatar2"
+            android:contentDescription="@null"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/circle_avatar"
@@ -116,6 +118,8 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/iconEdit"
+            android:contentDescription="@null"
+
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_edit"

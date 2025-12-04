@@ -9,8 +9,9 @@ import com.example.proyectofinal11.data.local.entity.UsuarioEntity
 @Dao
 interface UsuarioDao {
 
-    // Inserta un nuevo usuario en la base de datos.
-    // Si el email ya existe, reemplaza los datos (aunque podríamos querer evitarlo).
+    @Query("SELECT COUNT(id) FROM usuarios")
+    suspend fun contarUsuarios(): Int    // Si el email ya existe, reemplaza los datos (aunque podríamos querer evitarlo).
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertarUsuario(usuario: UsuarioEntity)
 

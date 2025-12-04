@@ -1,5 +1,6 @@
 package com.example.proyectofinal11
 
+import java.util.Locale
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -83,7 +84,7 @@ class RegistroActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                val fechaFormateada = String.format("%02d / %02d / %04d", selectedDay, selectedMonth + 1, selectedYear)
+                val fechaFormateada = String.format(Locale.ROOT,"%02d / %02d / %04d", selectedDay, selectedMonth + 1, selectedYear)
                 fechaNacimientoEditText.setText(fechaFormateada)
             },
             year,

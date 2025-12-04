@@ -83,6 +83,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_email" />
 
             <EditText
@@ -206,7 +207,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_arrow_down" />
+                    android:contentDescription="@null"
+                   android:src="@drawable/ic_arrow_down" />
             </LinearLayout>
         </LinearLayout>
 
@@ -241,6 +243,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_key" />
 
             <EditText
@@ -286,6 +289,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_key" />
 
             <EditText

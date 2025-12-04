@@ -48,8 +48,7 @@ class InicioSesionActivity : AppCompatActivity() {
         // --- LÓGICA DE INICIO DE SESIÓN UNIDA ---
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
-            val contrasena = passwordEditText.text.toString()
-
+            val contrasena = passwordEditText.text.toString().trim()
             // Validar que los campos no estén vacíos
             if (email.isBlank() || contrasena.isBlank()) {
                 Toast.makeText(this, "Por favor, ingresa correo y contraseña", Toast.LENGTH_SHORT).show()
