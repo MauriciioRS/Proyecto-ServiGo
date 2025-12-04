@@ -200,6 +200,8 @@
                     android:background="@android:color/transparent"
                     android:hint="Escoger el oficio"
                     android:inputType="none"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:textColorHint="@color/text_secondary" />
 
                 <ImageView

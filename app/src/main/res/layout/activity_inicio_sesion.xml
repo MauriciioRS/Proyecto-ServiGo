@@ -171,10 +171,33 @@
         app:layout_constraintVertical_bias="0.693" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/facebook_button"
+        android:layout_width="164dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/facebook"
+        android:textColor="@color/text_primary"
+        android:textSize="15sp"
+        app:backgroundTint="@color/social_button_background"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_facebook_logo"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp"
+        app:iconTint="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/google_button"
+        app:layout_constraintEnd_toStartOf="@+id/google_button"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/google_button"
+        app:rippleColor="@color/divider"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/google_button"
         android:layout_width="175dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
         android:text="@string/google"
         android:textColor="@color/text_primary"
         android:textSize="15sp"
@@ -186,35 +209,9 @@
         app:iconTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.988"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/facebook_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.762"
-        app:rippleColor="@color/divider"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/facebook_button"
-        android:layout_width="164dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/facebook"
-        android:textColor="@color/text_primary"
-        android:textSize="15sp"
-        app:backgroundTint="@color/social_button_background"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/ic_facebook_logo"
-        app:iconGravity="textStart"
-        app:iconPadding="12dp"
-        app:iconTint="@null"
-        app:layout_constraintBaseline_toBaselineOf="@+id/google_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
         app:rippleColor="@color/divider"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp" />
@@ -249,4 +246,3 @@
         app:layout_constraintVertical_bias="0.824" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
