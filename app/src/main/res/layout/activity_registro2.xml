@@ -26,8 +26,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Indicador de progreso -->
-
-        <!-- Título principal -->
         <TextView
             android:id="@+id/progress_indicator"
             android:layout_width="wrap_content"
@@ -39,11 +37,13 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/back_button"
             app:layout_constraintStart_toEndOf="@+id/back_button" />
 
+        <!-- Título principal -->
         <TextView
             android:id="@+id/title_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:gravity="center"
             android:text="Ingresa los siguientes datos"
             android:textColor="@color/primary"
             android:textSize="24sp"
@@ -53,298 +53,197 @@
             app:layout_constraintTop_toBottomOf="@+id/back_button" />
 
         <!-- Correo electrónico -->
-
         <TextView
             android:id="@+id/email_label"
-            android:layout_width="132dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="Correo electrónico"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
-        <LinearLayout
-            android:id="@+id/email_container"
-            android:layout_width="358dp"
-            android:layout_height="47dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/input_field_background"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:hint="Ingresa tu correo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_label">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_email" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_edit_text"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="Ingresa tu correo"
-                android:inputType="textEmailAddress"
-                android:textColorHint="@color/text_secondary" />
-        </LinearLayout>
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Tipo de cuenta -->
-
         <TextView
             android:id="@+id/tipo_cuenta_label"
-            android:layout_width="102dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:text="Tipo de cuenta"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_container" />
+            app:layout_constraintTop_toBottomOf="@+id/email_text_input_layout" />
 
-        <LinearLayout
+        <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/tipo_cuenta_segmented"
-            android:layout_width="350dp"
-            android:layout_height="41dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tipo_cuenta_label">
+            app:layout_constraintTop_toBottomOf="@+id/tipo_cuenta_label"
+            app:selectionRequired="true"
+            app:singleSelection="true">
 
             <Button
                 android:id="@+id/cliente_button"
-                android:layout_width="14dp"
-                android:layout_height="38dp"
-                android:layout_marginEnd="4dp"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/segmented_button_background"
-                android:stateListAnimator="@null"
-                android:text="Cliente"
-                android:textColor="@color/surface"
-                android:textSize="14sp" />
+                android:text="Cliente" />
 
             <Button
                 android:id="@+id/ambos_button"
-                android:layout_width="18dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/segmented_button_background"
-                android:stateListAnimator="@null"
-                android:text="Ambos"
-                android:textColor="@color/social_button_background"
-                android:textSize="14sp" />
+                android:text="Ambos" />
 
             <Button
                 android:id="@+id/contratista_button"
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/segmented_button_background"
-                android:stateListAnimator="@null"
-                android:text="Contratista"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
+                android:text="Contratista" />
 
-        <!-- Oficio -->
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
+        <!-- Oficio (CORREGIDO USANDO MATERIAL COMPONENTS) -->
         <TextView
             android:id="@+id/oficio_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:text="Oficio"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tipo_cuenta_segmented" />
 
-        <LinearLayout
-            android:id="@+id/oficio_container"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/oficio_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal"
+            android:hint="Selecciona un oficio"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/oficio_label">
+            app:layout_constraintTop_toBottomOf="@+id/oficio_label"
+            tools:visibility="visible">
 
-            <LinearLayout
-                android:layout_width="244dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/input_field_background"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+            <AutoCompleteTextView
+                android:id="@+id/oficio_auto_complete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/oficio_auto_complete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:hint="Escoger el oficio"
-                    android:inputType="none"
-                    android:textColorHint="@color/text_secondary" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    android:contentDescription="@null"
-                   android:src="@drawable/ic_arrow_down" />
-            </LinearLayout>
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Contraseña -->
-
         <TextView
             android:id="@+id/password_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:text="Contraseña"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/oficio_container" />
+            app:layout_constraintTop_toBottomOf="@id/oficio_text_input_layout" />
 
-        <LinearLayout
-            android:id="@+id/password_container"
-            android:layout_width="352dp"
-            android:layout_height="45dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/input_field_background"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:hint="Ingresa tu contraseña"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_label">
+            app:layout_constraintTop_toBottomOf="@+id/password_label"
+            app:passwordToggleEnabled="true">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_key" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password_edit_text"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="Ingresa tu contraseña"
-                android:inputType="textPassword"
-                android:textColorHint="@color/text_secondary" />
-        </LinearLayout>
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Confirmar contraseña -->
-
         <TextView
             android:id="@+id/confirm_password_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
             android:text="Confirmar contraseña"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_container" />
+            app:layout_constraintTop_toBottomOf="@+id/password_text_input_layout" />
 
-        <LinearLayout
-            android:id="@+id/confirm_password_container"
-            android:layout_width="354dp"
-            android:layout_height="42dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirm_password_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/input_field_background"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:hint="Confirma tu contraseña"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/confirm_password_label">
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password_label"
+            app:passwordToggleEnabled="true">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_key" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/confirm_password_edit_text"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="Confirmar tu contraseña"
-                android:inputType="textPassword"
-                android:textColorHint="@color/text_secondary" />
-        </LinearLayout>
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Botón Continuar -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/continuar_button"
-            android:layout_width="359dp"
-            android:layout_height="41dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
+            android:paddingVertical="12dp"
             android:text="Continuar"
-            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:backgroundTint="@color/primary"
             app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/confirm_password_container" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="57dp"
-            android:layout_height="40dp"
-            android:text="+"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.869"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.427" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Paso 2 de 3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.157"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.019" />
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password_text_input_layout"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

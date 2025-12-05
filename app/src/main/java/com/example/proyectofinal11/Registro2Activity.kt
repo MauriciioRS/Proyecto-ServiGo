@@ -2,152 +2,110 @@ package com.example.proyectofinal11
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import com.example.proyectofinal11.data.local.database.ServiGoDatabase
-import com.example.proyectofinal11.data.local.entity.UsuarioEntity
-import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.google.android.material.button.MaterialButtonToggleGroup
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class Registro2Activity : AppCompatActivity() {
 
-    private lateinit var emailEditText: EditText
-    private lateinit var clienteButton: Button
-    private lateinit var ambosButton: Button
-    private lateinit var contratistaButton: Button
+    // Vistas
+    private lateinit var emailEditText: TextInputEditText
+    private lateinit var tipoCuentaToggleGroup: MaterialButtonToggleGroup
+    private lateinit var oficioTextInputLayout: TextInputLayout
     private lateinit var oficioAutoComplete: AutoCompleteTextView
-    private lateinit var passwordEditText: EditText
-    private lateinit var confirmPasswordEditText: EditText
-    private lateinit var continuarButton: MaterialButton
+    private lateinit var passwordEditText: TextInputEditText
+    private lateinit var confirmPasswordEditText: TextInputEditText
+    private lateinit var continuarButton: com.google.android.material.button.MaterialButton
 
-    // Añade la variable para la base de datos
-    private lateinit var db: ServiGoDatabase
-
-    private val oficios = listOf(
-        "Jardinería", "Peluquería", "Mecánica", "Carpintería",
-        "Gasfitería", "Electricidad", "Pintura", "Albañilería",
-        "Limpieza", "Cocina", "Plomería", "Otro"
+    private val oficiosDomesticos = listOf(
+        "Gasfitería", "Electricidad", "Pintura", "Albañilería", "Jardinería",
+        "Limpieza de hogar", "Carpintería", "Cerrajería",
+        "Reparación de electrodomésticos", "Cuidado de ancianos", "Otro"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_registro2)
 
-        // Inicializa la base de datos
-        db = ServiGoDatabase.getDatabase(this)
+        inicializarVistas()
+        configurarListeners()
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        val oficioAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, oficiosDomesticos)
+        oficioAutoComplete.setAdapter(oficioAdapter)
+    }
 
+    private fun inicializarVistas() {
         emailEditText = findViewById(R.id.email_edit_text)
-        clienteButton = findViewById(R.id.cliente_button)
-        ambosButton = findViewById(R.id.ambos_button)
-        contratistaButton = findViewById(R.id.contratista_button)
+        tipoCuentaToggleGroup = findViewById(R.id.tipo_cuenta_segmented)
+        oficioTextInputLayout = findViewById(R.id.oficio_text_input_layout)
         oficioAutoComplete = findViewById(R.id.oficio_auto_complete)
         passwordEditText = findViewById(R.id.password_edit_text)
         confirmPasswordEditText = findViewById(R.id.confirm_password_edit_text)
         continuarButton = findViewById(R.id.continuar_button)
+    }
 
-        val oficioAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, oficios)
-        oficioAutoComplete.setAdapter(oficioAdapter)
+    private fun configurarListeners() {
+        findViewById<android.widget.ImageButton>(R.id.back_button).setOnClickListener { finish() }
 
-        setupTipoCuentaButtons()
-
-        findViewById<android.widget.ImageButton>(R.id.back_button).setOnClickListener {
-            finish()
+        tipoCuentaToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                oficioTextInputLayout.visibility = if (checkedId == R.id.cliente_button) View.GONE else View.VISIBLE
+            }
         }
+        tipoCuentaToggleGroup.check(R.id.cliente_button) // Estado inicial
 
-        // ===== CÓDIGO UNIDO Y MEJORADO =====
         continuarButton.setOnClickListener {
-            // 1. Recibir los datos del Paso 1
-            val nombre = intent.getStringExtra("NOMBRE") ?: ""
-            val apellido = intent.getStringExtra("APELLIDO") ?: ""
-            val dni = intent.getStringExtra("DNI") ?: ""
-            val fechaNac = intent.getStringExtra("FECHA_NAC") ?: ""
-            val direccion = intent.getStringExtra("DIRECCION") ?: ""
-            val distrito = intent.getStringExtra("DISTRITO") ?: ""
-
-            // 2. Recolectar los datos del Paso 2
-            val email = emailEditText.text.toString().trim()
-            val contrasena = passwordEditText.text.toString()
-            val confirmarContrasena = confirmPasswordEditText.text.toString()
-            val oficio = oficioAutoComplete.text.toString()
-            val tipoCuenta = when {
-                clienteButton.isSelected -> "Cliente"
-                ambosButton.isSelected -> "Ambos"
-                contratistaButton.isSelected -> "Contratista"
-                else -> "" // Nunca debería pasar si uno está seleccionado por defecto
-            }
-
-            // Validaciones
-            if(email.isEmpty() || contrasena.isEmpty()) {
-                Toast.makeText(this, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if(contrasena != confirmarContrasena) {
-                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // 3. Crear el objeto UsuarioEntity
-            val nuevoUsuario = UsuarioEntity(
-                nombre = nombre,
-                apellido = apellido,
-                dni = dni,
-                fechaNacimiento = fechaNac,
-                direccion = direccion,
-                distrito = distrito,
-                email = email,
-                contrasena = contrasena, // IMPORTANTE: En una app real, esto debe encriptarse
-                tipoCuenta = tipoCuenta,
-                oficio = if (tipoCuenta != "Cliente") oficio else null // El oficio es nulo si es solo cliente
-            )
-
-            // 4. Guardar en la base de datos usando una corutina
-            lifecycleScope.launch(Dispatchers.IO) {
-                db.usuarioDao().insertarUsuario(nuevoUsuario)
-                // Opcional: Podrías verificar si el email ya existe antes de insertar
-            }
-
-            // 5. Navegar al paso final
-            val intent = Intent(this, Registro3Activity::class.java)
-            // Limpiamos las actividades anteriores para que el usuario no pueda volver al registro
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish() // Cierra esta actividad
+            // Su única responsabilidad es validar y pasar los datos al siguiente paso
+            validarYContinuar()
         }
     }
 
-    private fun setupTipoCuentaButtons() {
-        val buttons = listOf(clienteButton, ambosButton, contratistaButton)
-
-        // Seleccionamos "Cliente" por defecto para que sea más intuitivo
-        clienteButton.isSelected = true
-        clienteButton.setTextColor(getColor(R.color.white))
-        ambosButton.setTextColor(getColor(R.color.text_primary))
-        contratistaButton.setTextColor(getColor(R.color.text_primary))
-
-        buttons.forEach { button ->
-            button.setOnClickListener {
-                buttons.forEach { it.isSelected = false }
-                buttons.forEach { it.setTextColor(getColor(R.color.text_primary)) }
-
-                button.isSelected = true
-                button.setTextColor(getColor(R.color.white))
-            }
+    private fun validarYContinuar() {
+        val email = emailEditText.text.toString().trim()
+        val contrasena = passwordEditText.text.toString()
+        val confirmarContrasena = confirmPasswordEditText.text.toString()
+        val oficio = oficioAutoComplete.text.toString()
+        val tipoCuenta = when (tipoCuentaToggleGroup.checkedButtonId) {
+            R.id.cliente_button -> "Cliente"
+            R.id.ambos_button -> "Ambos"
+            R.id.contratista_button -> "Contratista"
+            else -> ""
         }
+
+        // Validación de los campos de esta pantalla
+        if (email.isEmpty() || contrasena.isEmpty()) {
+            Toast.makeText(this, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (contrasena.length < 6) {
+            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (contrasena != confirmarContrasena) {
+            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (tipoCuenta != "Cliente" && oficio.isEmpty()) {
+            Toast.makeText(this, "Por favor, selecciona un oficio", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // --- EMPAQUETAR Y ENVIAR TODOS LOS DATOS ---
+        val intentPaso3 = Intent(this, Registro3Activity::class.java).apply {
+            // 1. Pasa los datos que recibiste del Paso 1
+            putExtras(intent.extras ?: Bundle()) // Esto reenvía todos los extras del intent anterior
+
+            // 2. Añade los nuevos datos del Paso 2
+            putExtra("EMAIL", email)
+            putExtra("CONTRASENA", contrasena)
+            putExtra("TIPO_CUENTA", tipoCuenta)
+            putExtra("OFICIO", if (tipoCuenta != "Cliente") oficio else null)
+        }
+        startActivity(intentPaso3)
     }
 }

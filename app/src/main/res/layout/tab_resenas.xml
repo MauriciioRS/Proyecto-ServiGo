@@ -1,157 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reseñas"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#000" />
-
-    <!-- Reseña 1 -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="#F5F5F5"
-        android:layout_marginTop="12dp"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Reseñas"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    android:textColor="#000" />
+    <!-- Contenedor para el RecyclerView y el mensaje de "vacío" -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <!-- Avatar -->
-        <ImageView
-            android:id="@+id/imgAvatar1"
-            android:layout_width="50dp"
-            android:contentDescription="@null"
-            android:layout_height="50dp"
-            android:src="@drawable/circle_avatar"
-            android:scaleType="centerCrop"
-            android:background="@drawable/circle_avatar"
-            android:padding="4dp"
-            android:layout_marginEnd="12dp" />
+        <!-- ⭐ RECYCLERVIEW CON EL ID CORRECTO -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reviews_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:listitem="@layout/item_resena" /> <!-- `tools:listitem` te da una vista previa en el editor -->
 
-        <!-- Texto -->
-        <LinearLayout
-            android:orientation="vertical"
+        <!-- ⭐ TEXTVIEW DE "VACÍO" CON EL ID CORRECTO -->
+        <TextView
+            android:id="@+id/empty_reviews_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Este profesional aún no tiene reseñas. ¡Sé el primero en dejar una!"
+            android:visibility="gone" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="María Lopez"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="#000" />
+    </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Excelente servicio, muy puntual."
-                android:textColor="#555"
-                android:textSize="14sp"
-                android:layout_marginTop="3dp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Reseña 2 -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="#F5F5F5"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!-- Avatar -->
-        <ImageView
-            android:id="@+id/imgAvatar2"
-            android:contentDescription="@null"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/circle_avatar"
-            android:scaleType="centerCrop"
-            android:background="@drawable/circle_avatar"
-            android:padding="4dp"
-            android:layout_marginEnd="12dp" />
-
-        <!-- Texto -->
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Carlos Ramos"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="#000" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Muy buen trabajo y responsable."
-                android:textColor="#555"
-                android:textSize="14sp"
-                android:layout_marginTop="3dp" />
-        </LinearLayout>
-    </LinearLayout>
-    <!-- APARTADO PARA ESCRIBIR UNA NUEVA RESEÑA -->
+    <!-- APARTADO PARA ESCRIBIR UNA NUEVA RESEÑA (Tu código ya era correcto) -->
     <LinearLayout
         android:id="@+id/layoutAddReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="#EFEFEF"
         android:layout_marginTop="16dp"
-        android:gravity="center_vertical">
+        android:background="#EFEFEF"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp">
 
-        <!-- Ícono de lápiz -->
         <ImageView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/iconEdit"
-            android:contentDescription="@null"
-
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:contentDescription="@null"
             android:src="@drawable/ic_edit"
             app:tint="#555" />
 
-        <!-- Cuadro de texto -->
         <EditText
             android:id="@+id/inputReview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Escribe tu reseña..."
             android:background="@drawable/rounded_edittext"
+            android:hint="Escribe tu reseña..."
+            android:maxLines="3"
             android:padding="10dp"
             android:textColor="#000"
-            android:textColorHint="#777"
-            android:maxLines="3"/>
+            android:textColorHint="#777" />
 
-        <!-- Botón Subir -->
         <Button
             android:id="@+id/btnSubirResena"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subir"
+            android:layout_marginStart="10dp"
             android:backgroundTint="#1A73E8"
-            android:textColor="#fff"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_marginStart="10dp"/>
+            android:text="Subir"
+            android:textColor="#fff" />
     </LinearLayout>
-
-
-
 
 </LinearLayout>

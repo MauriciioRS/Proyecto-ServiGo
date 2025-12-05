@@ -20,6 +20,7 @@
             android:layout_marginBottom="6dp" />
 
         <TextView
+            android:id="@+id/aboutMeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gasfiter profesional con más de 15 años de experiencia."
@@ -43,6 +44,7 @@
                 android:src="@drawable/ic_experiencia"/>
 
             <TextView
+                android:id="@+id/experienceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Experiencia: 15 años"
@@ -68,6 +70,7 @@
                 android:src="@drawable/ic_location"/>
 
             <TextView
+                android:id="@+id/zonesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Zonas: Cercado de Lima"

@@ -236,17 +236,17 @@
     <Button
         android:id="@+id/Registrate_button"
         android:layout_width="106dp"
-        android:layout_height="39dp"
+        android:layout_height="40dp"
         android:backgroundTint="@color/background"
         android:text="Registrate"
         android:textColor="@color/primary"
-        android:textSize="12sp"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.719"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.824" />
+        app:layout_constraintVertical_bias="0.8325" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

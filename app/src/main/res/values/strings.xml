@@ -111,6 +111,8 @@
     <string name="imagen_fondo_desc">Imagen decorativa de fondo</string>
     <string name="favorito_desc">Favorito</string>
 
+    <!-- Clave de cliente web para el inicio de sesión con Google -->
+    <string name="default_web_client_id" translatable="false">531022456319-83ip0m4ca9bse1jugifss3r2o611j1uc.apps.googleusercontent.com</string>
 
 
 </resources>

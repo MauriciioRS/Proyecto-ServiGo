@@ -14,7 +14,7 @@ object UsuarioData {
             experiencia = "5 años",
             rating = 4.8,
             reviews = 128,
-            avatarUrl = null
+            urlFotoPerfil= null
         )
     }
 }

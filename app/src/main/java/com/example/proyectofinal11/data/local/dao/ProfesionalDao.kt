@@ -24,4 +24,7 @@ interface ProfesionalDao {
 
     @Query("DELETE FROM profesionales")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM profesionales WHERE id = :profesionalId")
+    suspend fun getProfesionalById(profesionalId: Int): ProfesionalEntity?
 }

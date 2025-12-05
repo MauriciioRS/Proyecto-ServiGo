@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "531022456319",
+    "project_id": "formulario-dc136ec7",
+    "storage_bucket": "formulario-dc136ec7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531022456319:android:cc8db3260f6173e47f33ca",
+        "android_client_info": {
+          "package_name": "com.example.proyectofinal11"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531022456319-83ip0m4ca9bse1jugifss3r2o611j1uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOxawPM23WWcAYUiX_hvpVWjNotLZ4wzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531022456319-83ip0m4ca9bse1jugifss3r2o611j1uc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

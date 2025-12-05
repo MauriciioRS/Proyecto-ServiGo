@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.ImageView // <-- Importa ImageView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -22,7 +23,7 @@ class MensajesAdapter(
         private val tvHora: TextView = view.findViewById(R.id.tvHora)
         private val tvStatus: TextView = view.findViewById(R.id.tvStatus)
         private val tvUnreadCount: TextView = view.findViewById(R.id.tvUnreadCount)
-
+        private val imgAvatar: ImageView = view.findViewById(R.id.imgAvatar)
         fun bind(item: MensajeEntity) {
             val displayName = if (item.titulo.isNotBlank() && item.titulo != "Trabajo ${item.id}") {
                 item.titulo

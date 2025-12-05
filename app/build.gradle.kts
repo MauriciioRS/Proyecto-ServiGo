@@ -1,8 +1,10 @@
+// Ruta: C:/Users/miyuk/AndroidStudioProjects/Proyecto-ServiGo/app/build.gradle.kts
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-}
+    id("com.google.gms.google-services")}
 
 android {
     namespace = "com.example.proyectofinal11"
@@ -37,6 +39,7 @@ android {
 }
 
 dependencies {
+    // --- Dependencias existentes ---
     implementation(libs.glide)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -52,10 +55,22 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    // --- AÑADE LAS DEPENDENCIAS DE ROOM AQUÍ ---
+
+    // --- Dependencias de Room ---
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx) // Para soporte de Coroutines (Flow, suspend fun)
-    ksp(libs.androidx.room.compiler) // Usa 'ksp' para el procesador de anotaciones
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
+    // --- BLOQUE DE FIREBASE Y GOOGLE CORREGIDO ---
+    // 1. Importa la plataforma BoM (Bill of Materials).
+    //    Debe ir PRIMERO para gestionar las versiones de las demás librerías de Firebase.
+    implementation(platform(libs.firebase.bom))
 
+    // 2. Implementa la librería de autenticación de Firebase usando el alias corregido.
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.storage)
+    implementation("com.google.firebase:firebase-firestore")
+    // 3. Implementa la librería de Google Sign-In.
+    implementation(libs.play.services.auth)
+    implementation(libs.play.services.maps)
 }
