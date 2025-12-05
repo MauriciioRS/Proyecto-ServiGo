@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA"
+    android:fitsSystemWindows="true"
     tools:context=".ui.chat.ChatActivity">
 
     <!-- 🔵 Toolbar -->
@@ -18,7 +19,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
         app:title="Nombre del Chat"
-        app:titleTextColor="@android:color/white"  app:menu="@menu/chat_menu"  />
+        app:menu="@menu/chat_menu"
+        app:titleTextColor="@android:color/white" />
+
 
     <!-- 🟣 Lista de Mensajes -->
     <androidx.recyclerview.widget.RecyclerView
