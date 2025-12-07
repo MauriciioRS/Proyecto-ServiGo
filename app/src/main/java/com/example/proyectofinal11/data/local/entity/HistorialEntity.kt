@@ -7,17 +7,13 @@ import androidx.room.PrimaryKey
 data class HistorialEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-
-    // --- NUEVOS CAMPOS CLAVE ---
-    val clienteId: Int,       // ID del usuario que solicita el trabajo
-    val contratistaId: Int,   // ID del usuario que realiza el trabajo
-
-    // --- Mantenemos los otros datos ---
+    val clienteId: String,
+    val contratistaId: String,
     val caso: String,
     val titulo: String,
-    val usuario: String, // Este campo ahora representará a la "otra persona" en la transacción
+    val usuario: String,
     val fecha: String,
     val precio: String,
-    val estado: String,       // "En proceso", "Finalizado", "Cancelado"
+    val estado: String,
     val avatarUrl: String = ""
 )

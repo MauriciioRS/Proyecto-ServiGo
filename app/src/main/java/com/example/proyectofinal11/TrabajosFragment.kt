@@ -15,7 +15,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.emptyFlow // <-- IMPORTANTE: para el caso 'else'
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 
 class TrabajosFragment : Fragment() {
@@ -54,24 +54,16 @@ class TrabajosFragment : Fragment() {
     private fun setupTabs() {
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                // Asumimos que el ID del usuario actual es 1 (Mario Pérez).
-                // En una aplicación real, obtendrías este ID de SharedPreferences
-                // o de algún gestor de sesión después de que el usuario inicie sesión.
-                val idUsuarioActual = 1
+                // CORRECCIÓN: Usamos String para el ID ("1") en lugar de Int (1)
+                val idUsuarioActual = "1"
 
-                // --- LÓGICA CORREGIDA ---
                 val flow: Flow<List<HistorialEntity>> = when (tab?.position) {
-                    // Pestaña 0: "Solicitudes" -> Trabajos que YO he solicitado
+                    // Pestaña 0: "Solicitudes"
                     0 -> db.historialDao().getMisSolicitudesPorEstado(idUsuarioActual, "En proceso")
 
-                    // Pestaña 1: "Atendidos" -> Trabajos que YO debo atender.
-                    // En los datos de prueba, pusimos tanto "En proceso" como "Finalizado".
-                    // Para mostrar ambos, necesitaríamos otra consulta o más pestañas.
-                    // Por ahora, mostraremos los Atendidos que están finalizados.
+                    // Pestaña 1: "Atendidos"
                     1 -> db.historialDao().getMisAtendidosPorEstado(idUsuarioActual, "Finalizado")
 
-                    // CORRECCIÓN: Añadimos la rama 'else' para que el 'when' sea exhaustivo.
-                    // Si la pestaña es nula o no es 0 o 1, devolvemos un flujo vacío.
                     else -> emptyFlow()
                 }
                 observeHistorial(flow)
@@ -81,7 +73,6 @@ class TrabajosFragment : Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-        // Esto sigue siendo correcto y crucial para la carga inicial.
         tabLayout.getTabAt(0)?.select()
     }
 
@@ -96,12 +87,13 @@ class TrabajosFragment : Fragment() {
     private fun insertarDatosDePrueba() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (db.historialDao().contarHistorial() == 0) {
-                val idUsuarioActual = 1
+                // CORRECCIÓN: Usamos String para los IDs
+                val idUsuarioActual = "1"
                 val datos = listOf(
-                    // --- CASO 1: "SOLICITUD" (Yo, Mario, pido un trabajo) ---
+                    // --- CASO 1: "SOLICITUD" ---
                     HistorialEntity(
                         clienteId = idUsuarioActual,
-                        contratistaId = 2,
+                        contratistaId = "2",
                         caso = "Pintar pared de sala",
                         titulo = "Servicio de Pintura",
                         usuario = "Ana la Pintora",
@@ -109,9 +101,9 @@ class TrabajosFragment : Fragment() {
                         precio = "S/120.00",
                         estado = "En proceso"
                     ),
-                    // --- CASO 2: "ATENDIDO" (Alguien me pide un trabajo a mí, Mario) ---
+                    // --- CASO 2: "ATENDIDO" ---
                     HistorialEntity(
-                        clienteId = 3,
+                        clienteId = "3",
                         contratistaId = idUsuarioActual,
                         caso = "Instalar nueva ducha",
                         titulo = "Servicio de Gasfitería",
@@ -120,9 +112,9 @@ class TrabajosFragment : Fragment() {
                         precio = "S/80.00",
                         estado = "Finalizado"
                     ),
-                    // --- CASO 3: Otro "ATENDIDO" pero "En Proceso" ---
+                    // --- CASO 3: Otro "ATENDIDO" ---
                     HistorialEntity(
-                        clienteId = 4,
+                        clienteId = "4",
                         contratistaId = idUsuarioActual,
                         caso = "Fuga en lavadero",
                         titulo = "Reparación Urgente",

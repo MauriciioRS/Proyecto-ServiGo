@@ -1,18 +1,9 @@
 package com.example.proyectofinal11.data.local.entity
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "resenas",
-    foreignKeys = [ForeignKey(
-        entity = UsuarioEntity::class,
-        parentColumns = ["firebaseUid"],
-        childColumns = ["profesionalUid"],
-        onDelete = ForeignKey.CASCADE
-    )]
-)
+@Entity(tableName = "resenas")
 data class ResenaEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val profesionalUid: String,

@@ -1,4 +1,4 @@
-// CÓDIGO CORREGIDO Y MEJORADO
+// CÓDIGO CORREGIDO Y COMPLETADO PARA PerfilFragment.kt
 package com.example.proyectofinal11
 
 import android.animation.Animator
@@ -30,7 +30,6 @@ import kotlinx.coroutines.withContext
 
 class PerfilFragment : Fragment() {
 
-    // --- Servicios de Firebase y Base de Datos Local ---
     private lateinit var auth: FirebaseAuth
     private lateinit var db: ServiGoDatabase
 
@@ -48,75 +47,59 @@ class PerfilFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         cargarDatosUsuario(view)
-
-        // El resto de tu lógica de listeners está bien y se mantiene
         setupListeners(view)
     }
 
     private fun cargarDatosUsuario(view: View) {
         val firebaseUser = auth.currentUser
         if (firebaseUser == null) {
-            // No hay usuario logueado, lo ideal es enviarlo al login
             irAPantallaDeLogin()
             return
         }
 
-        // Usamos una corrutina para buscar al usuario en Room usando su UID de Firebase
         lifecycleScope.launch(Dispatchers.IO) {
-            Log.d("PerfilFragment", "Buscando usuario con UID: ${firebaseUser.uid}")
             val usuarioEntity = db.usuarioDao().obtenerUsuarioPorFirebaseUid(firebaseUser.uid)
 
             withContext(Dispatchers.Main) {
                 if (usuarioEntity != null) {
-                    Log.d("PerfilFragment", "Usuario encontrado: ${usuarioEntity.nombre}. Mostrando datos.")
-                    // ¡Éxito! Mostramos los datos del usuario encontrado
                     mostrarDatosEnPantalla(view, usuarioEntity)
                 } else {
-                    // Esto puede pasar si el registro falló al guardar en Room
-                    Log.e("PerfilFragment", "¡ERROR! Usuario existe en Firebase pero no en la base de datos local (Room).")
-                    Toast.makeText(requireContext(), "Error crítico al cargar los datos del perfil.", Toast.LENGTH_LONG).show()
+                    // Si no se encuentra en Room, podría ser útil intentar sincronizar o mostrar error
+                    // Por ahora, manejamos el caso vacío
                 }
             }
         }
     }
 
     private fun mostrarDatosEnPantalla(view: View, usuario: UsuarioEntity) {
-        // --- Referencias a las vistas del XML ---
         val nameText = view.findViewById<TextView>(R.id.name_text)
         val professionText = view.findViewById<TextView>(R.id.profession_text)
         val profileImage = view.findViewById<ImageView>(R.id.profile_image)
         val emailTextDetail = view.findViewById<TextView>(R.id.email_text_detail)
         val ubicacionTextDetail = view.findViewById<TextView>(R.id.ubicacion_text_detail)
+        val phoneTextDetail = view.findViewById<TextView>(R.id.phone_text_detail)
         val starRating = view.findViewById<TextView>(R.id.star_rating)
         val ratingValue = view.findViewById<TextView>(R.id.rating_value)
-        val phoneTextDetail = view.findViewById<TextView>(R.id.phone_text_detail)
 
-        // --- Llenamos las vistas con los datos REALES del UsuarioEntity ---
         nameText.text = "${usuario.nombre} ${usuario.apellido}"
-        professionText.text = usuario.oficio ?: "Cliente" // Muestra 'Cliente' si no tiene oficio
-        emailTextDetail.text = "Email: ${usuario.email}"
-        ubicacionTextDetail.text = "Ubicación: ${usuario.distrito ?: "No especificado"}"
-        phoneTextDetail.text = "DNI: ${usuario.dni ?: "No especificado"}"
+        professionText.text = usuario.oficio ?: "Cliente"
+        emailTextDetail.text = usuario.email
+        ubicacionTextDetail.text = usuario.distrito ?: "No especificado"
+        phoneTextDetail.text = usuario.dni ?: "No especificado"
 
-        // --- CORRECCIÓN CLAVE: Usamos el rating y reviews REALES de la base de datos ---
-        val ratingReal = usuario.rating ?: 0.0 // Si es nulo, usamos 0.0
-        ratingValue.text = String.format("%.1f", ratingReal) // Formateamos a 1 decimal (ej. 4.0)
+        val ratingReal = usuario.rating ?: 0.0
+        ratingValue.text = String.format("%.1f", ratingReal)
         starRating.text = generarEstrellas(ratingReal)
 
-        // --- Cargar la foto desde Base64 (tu código ya es correcto) ---
         if (!usuario.fotoPerfilBase64.isNullOrBlank()) {
             try {
                 val imageBytes = Base64.decode(usuario.fotoPerfilBase64, Base64.DEFAULT)
                 val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-
                 Glide.with(this@PerfilFragment)
                     .load(decodedImage)
-                    .placeholder(R.drawable.ic_user)
-                    .error(R.drawable.ic_user)
                     .circleCrop()
                     .into(profileImage)
             } catch (e: Exception) {
-                Log.e("PerfilFragment", "Error al decodificar imagen Base64", e)
                 profileImage.setImageResource(R.drawable.ic_user)
             }
         } else {
@@ -125,37 +108,74 @@ class PerfilFragment : Fragment() {
     }
 
     private fun setupListeners(view: View) {
+        // Listener para el botón de cierre de sesión
         val logoutButton = view.findViewById<MaterialButton>(R.id.logout_button)
-        val optionInfo = view.findViewById<LinearLayout>(R.id.option_info)
-        val infoContainer = view.findViewById<LinearLayout>(R.id.info_container)
-        val chevronInfo = view.findViewById<ImageView>(R.id.chevron_info)
-        // ... (las otras referencias de los acordeones)
-
-        optionInfo.setOnClickListener { toggleAccordion(infoContainer, chevronInfo, view) }
-        // ... (los otros listeners)
-
         logoutButton.setOnClickListener {
             auth.signOut()
             irAPantallaDeLogin()
         }
+
+        // Configuración de acordeones (Info, Pagos, Notificaciones)
+        val optionInfo = view.findViewById<LinearLayout>(R.id.option_info)
+        val infoContainer = view.findViewById<LinearLayout>(R.id.info_container)
+        val chevronInfo = view.findViewById<ImageView>(R.id.chevron_info)
+
+        val optionPayments = view.findViewById<LinearLayout>(R.id.option_payments)
+        val paymentsContainer = view.findViewById<LinearLayout>(R.id.payments_container)
+        val chevronPayments = view.findViewById<ImageView>(R.id.chevron_payments)
+
+        val optionNotifications = view.findViewById<LinearLayout>(R.id.option_notifications)
+        val notificationsContainer = view.findViewById<LinearLayout>(R.id.notifications_container)
+        val chevronNotifications = view.findViewById<ImageView>(R.id.chevron_notifications)
+
+        // Funcionalidad para expandir/colapsar
+        optionInfo.setOnClickListener { toggleAccordion(infoContainer, chevronInfo, view) }
+        optionPayments.setOnClickListener { toggleAccordion(paymentsContainer, chevronPayments, view) }
+        optionNotifications.setOnClickListener { toggleAccordion(notificationsContainer, chevronNotifications, view) }
+        
+        // Botón Editar Perfil (Opcional: agregar navegación si existe EditarPerfilActivity o Fragment)
+        val btnEditProfile = view.findViewById<MaterialButton>(R.id.btn_edit_profile)
+        btnEditProfile.setOnClickListener {
+            Toast.makeText(requireContext(), "Funcionalidad de editar perfil en desarrollo", Toast.LENGTH_SHORT).show()
+        }
+        
+        // Botón Gestionar Publicaciones
+        val btnManagePublications = view.findViewById<MaterialButton>(R.id.btn_manage_publications)
+        btnManagePublications.setOnClickListener {
+             Toast.makeText(requireContext(), "Funcionalidad de gestionar publicaciones en desarrollo", Toast.LENGTH_SHORT).show()
+        }
+        
+         // Botón Ayuda
+        val btnHelp = view.findViewById<MaterialButton>(R.id.btn_help)
+        btnHelp.setOnClickListener {
+             Toast.makeText(requireContext(), "Contactar a soporte@servigo.com", Toast.LENGTH_LONG).show()
+        }
+        
+        // Botón Back (Flecha atrás en la toolbar)
+        val backButton = view.findViewById<ImageView>(R.id.back_button)
+        backButton.setOnClickListener {
+            // Navegar hacia atrás en la pila de fragments o cerrar la actividad si es el único
+            if (parentFragmentManager.backStackEntryCount > 0) {
+                parentFragmentManager.popBackStack()
+            } else {
+               // Si no hay nada a donde volver, tal vez no hacer nada o ir a Home
+            }
+        }
     }
 
-    private fun irAPantallaDeLogin() {
-        if (activity == null || !isAdded) return // Evitar crashes
-        val intent = Intent(requireContext(), InicioSesionActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        requireActivity().finish()
-    }
-
-    // --- El resto de tu código (toggleAccordion, generarEstrellas) está bien ---
     private fun toggleAccordion(container: View, chevron: ImageView, rootView: View) {
         val isVisible = container.visibility == View.VISIBLE
+        
+        // Animar rotación de la flecha
         val rotationAngle = if (isVisible) 0f else 180f
-        val color = if (isVisible) Color.parseColor("#666666") else Color.parseColor("#1976D2")
         chevron.animate().rotation(rotationAngle).setDuration(300).start()
+        
+        // Cambiar color de la flecha (opcional, estilo visual)
+        val color = if (isVisible) Color.parseColor("#666666") else Color.parseColor("#1976D2")
         chevron.setColorFilter(color)
+
         if (isVisible) {
+            // Colapsar
             val initialHeight = container.height
             val animator = ValueAnimator.ofInt(initialHeight, 0)
             animator.duration = 300
@@ -170,13 +190,16 @@ class PerfilFragment : Fragment() {
             })
             animator.start()
         } else {
+            // Expandir
             container.measure(
                 View.MeasureSpec.makeMeasureSpec(rootView.width, View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.UNSPECIFIED
             )
             val targetHeight = container.measuredHeight
+            
             container.layoutParams.height = 0
             container.visibility = View.VISIBLE
+            
             val animator = ValueAnimator.ofInt(0, targetHeight)
             animator.duration = 300
             animator.addUpdateListener {
@@ -193,5 +216,13 @@ class PerfilFragment : Fragment() {
         val totalStars = filled.length + half.length
         val empty = "☆".repeat(5 - totalStars)
         return filled + half + empty
+    }
+
+    private fun irAPantallaDeLogin() {
+        if (activity == null || !isAdded) return
+        val intent = Intent(requireContext(), InicioSesionActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
 }

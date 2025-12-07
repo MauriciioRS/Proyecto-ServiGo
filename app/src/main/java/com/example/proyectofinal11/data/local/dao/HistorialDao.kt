@@ -10,20 +10,17 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface HistorialDao {
 
-    // --- NUEVAS CONSULTAS INTELIGENTES ---
-
     // Obtiene los trabajos que YO solicité (soy el cliente)
     @Query("SELECT * FROM historial_trabajos WHERE clienteId = :usuarioIdActual AND estado = :estado ORDER BY id DESC")
-    fun getMisSolicitudesPorEstado(usuarioIdActual: Int, estado: String): Flow<List<HistorialEntity>>
+    fun getMisSolicitudesPorEstado(usuarioIdActual: String, estado: String): Flow<List<HistorialEntity>>
 
     // Obtiene los trabajos que YO debo atender (soy el contratista)
     @Query("SELECT * FROM historial_trabajos WHERE contratistaId = :usuarioIdActual AND estado = :estado ORDER BY id DESC")
-    fun getMisAtendidosPorEstado(usuarioIdActual: Int, estado: String): Flow<List<HistorialEntity>>
+    fun getMisAtendidosPorEstado(usuarioIdActual: String, estado: String): Flow<List<HistorialEntity>>
 
-    // --- Mantenemos estas para pruebas y otros usos ---
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(historial: List<HistorialEntity>)
 
     @Query("SELECT COUNT(*) FROM historial_trabajos")
-    suspend fun contarHistorial(): Int // Una forma más eficiente de saber si está vacía
+    suspend fun contarHistorial(): Int
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofinal11.adapters.MensajesAdapter
 import com.example.proyectofinal11.data.local.database.ServiGoDatabase
 import com.example.proyectofinal11.data.local.entity.MensajeEntity
+import com.example.proyectofinal11.vi.chat.ChatActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +53,8 @@ class MensajesFragment : Fragment() {
             val intent = Intent(requireContext(), ChatActivity::class.java).apply {
                 // ⭐ Pasamos la información correcta para el chat en tiempo real
                 putExtra("CONVERSACION_ID", mensajeEntity.conversacionId)
-                putExtra("RECEPTOR_UID", mensajeEntity.receptorUid)
+                // CORRECCIÓN: Usar la clave "RECIPIENT_UID" que espera ChatActivity
+                putExtra("RECIPIENT_UID", mensajeEntity.receptorUid)
 
                 // El título combina nombre y oficio (si existe)
                 val chatTitle = if (!mensajeEntity.oficioProfesional.isNullOrBlank()) {

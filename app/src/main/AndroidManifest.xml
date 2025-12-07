@@ -49,13 +49,15 @@
 
         <activity android:name=".MensajeActivity" />
 
+        <!-- Actividad de Chat Funcional -->
+        <activity
+            android:name=".vi.chat.ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Pantalla principal -->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.chat.ChatActivity"
             android:exported="false" />
 
     </application>

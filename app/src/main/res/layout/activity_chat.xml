@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:menu="@menu/chat_menu"
             app:navigationIcon="@drawable/ic_back"
             app:navigationIconTint="?attr/colorOnPrimary"
             app:title="Nombre del Chat"
@@ -29,7 +28,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- ⭐ CORRECCIÓN: Solo se necesita UN RecyclerView para toda la conversación. -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_chat"
         android:layout_width="0dp"

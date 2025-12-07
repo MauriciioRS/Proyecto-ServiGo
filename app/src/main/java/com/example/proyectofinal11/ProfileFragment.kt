@@ -1,4 +1,3 @@
-// CÓDIGO FINAL Y COMPLETO PARA ProfileFragment.kt
 package com.example.proyectofinal11
 
 import android.content.Intent
@@ -21,7 +20,7 @@ import com.example.proyectofinal11.adapters.ProfilePagerAdapter
 import com.example.proyectofinal11.data.local.database.ServiGoDatabase
 import com.example.proyectofinal11.data.local.entity.FavoritoEntity
 import com.example.proyectofinal11.data.local.entity.UsuarioEntity
-import com.example.proyectofinal11.ui.chat.ChatActivity
+import com.example.proyectofinal11.vi.chat.ChatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -112,7 +111,13 @@ class ProfileFragment : Fragment(), TabResenasFragment.OnResenaSubidaListener {
         val guardarButton = view.findViewById<MaterialButton>(R.id.btnGuardar)
 
         contactarButton.setOnClickListener {
-            // ... (tu lógica para contactar)
+            usuarioDelPerfil?.let { user ->
+                val intent = Intent(requireContext(), ChatActivity::class.java).apply {
+                    putExtra("RECIPIENT_UID", user.firebaseUid)
+                    putExtra("CHAT_TITLE", "${user.nombre} ${user.apellido}")
+                }
+                startActivity(intent)
+            }
         }
 
         // Ocultar botón de guardar si el usuario está viendo su propio perfil
@@ -130,7 +135,6 @@ class ProfileFragment : Fragment(), TabResenasFragment.OnResenaSubidaListener {
     }
 
     private fun toggleFavorito(usuario: UsuarioEntity, boton: MaterialButton) {
-        // ... (tu lógica de toggleFavorito se queda igual, ya es correcta)
         val contratistaUid = usuario.firebaseUid
         val clienteActualUid = auth.currentUser?.uid
 
@@ -162,7 +166,6 @@ class ProfileFragment : Fragment(), TabResenasFragment.OnResenaSubidaListener {
     }
 
     private fun actualizarBotonFavorito(boton: MaterialButton) {
-        // ... (tu lógica de actualizarBotonFavorito se queda igual, ya es correcta)
         if (esFavoritoActual) {
             boton.text = "Guardado"
             boton.setIconResource(R.drawable.ic_heart_filled)
@@ -173,7 +176,6 @@ class ProfileFragment : Fragment(), TabResenasFragment.OnResenaSubidaListener {
     }
 
     private fun mostrarDatosEnUI(view: View, usuario: UsuarioEntity) {
-        // ... (tu lógica de mostrarDatosEnUI se queda igual, ya es correcta)
         val profileImage = view.findViewById<ImageView>(R.id.profileImage)
         val userName = view.findViewById<TextView>(R.id.userName)
         val userProfession = view.findViewById<TextView>(R.id.userProfession)
@@ -205,7 +207,6 @@ class ProfileFragment : Fragment(), TabResenasFragment.OnResenaSubidaListener {
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = view.findViewById<ViewPager2>(R.id.tabContent)
 
-        // ⭐ CORRECCIÓN: Se crea el adaptador pasándole `this` (el fragmento) y luego se le asigna el UID.
         val pagerAdapter = ProfilePagerAdapter(this)
         pagerAdapter.profesionalUid = this.usuarioUid
         viewPager.adapter = pagerAdapter
@@ -220,11 +221,8 @@ class ProfileFragment : Fragment(), TabResenasFragment.OnResenaSubidaListener {
         }.attach()
     }
 
-    // ⭐ CORRECCIÓN: La función que implementa la interfaz ahora existe.
     override fun onResenaSubida() {
         Log.d("ProfileFragment", "Notificación recibida: nueva reseña subida. Recargando perfil...")
-        // Cuando TabResenasFragment nos avisa, simplemente volvemos a cargar los datos.
-        // Esto actualizará el RatingBar y el contador de reseñas en la UI principal.
         view?.let {
             cargarDatosDelUsuario(it)
         }

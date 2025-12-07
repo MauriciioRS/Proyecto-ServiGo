@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-android:id="@+id/menu_rename_work"
-android:title="Cambiar nombre del trabajo"
-app:showAsAction="never" />
+        android:id="@+id/menu_work"
+        android:title="Trabajo"
+        app:showAsAction="never" />
 
-<item
-android:id="@+id/menu_call"
-android:title="Llamar"
-app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_description"
+        android:title="Descripción"
+        app:showAsAction="never" />
 
-<item
-android:id="@+id/menu_archive_chat"
-android:title="Archivar chat"
-app:showAsAction="never" />
-    </menu>
+    <item
+        android:id="@+id/menu_confirm_date"
+        android:title="Confirmar fecha"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_payment"
+        android:title="Pago"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_project_status"
+        android:title="Status del proyecto"
+        app:showAsAction="never" />
+        
+</menu>
