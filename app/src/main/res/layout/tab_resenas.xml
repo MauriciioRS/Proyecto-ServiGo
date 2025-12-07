@@ -1,82 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Reseñas"
-    android:textSize="18sp"
-    android:textStyle="bold"
-    android:textColor="#000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reseñas"
+        android:textAppearance="?attr/textAppearanceTitleMedium" />
+
     <!-- Contenedor para el RecyclerView y el mensaje de "vacío" -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_marginTop="8dp">
 
-        <!-- ⭐ RECYCLERVIEW CON EL ID CORRECTO -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reviews_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            tools:listitem="@layout/item_resena" /> <!-- `tools:listitem` te da una vista previa en el editor -->
+            tools:listitem="@layout/item_resena" />
 
-        <!-- ⭐ TEXTVIEW DE "VACÍO" CON EL ID CORRECTO -->
         <TextView
             android:id="@+id/empty_reviews_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Este profesional aún no tiene reseñas. ¡Sé el primero en dejar una!"
-            android:visibility="gone" />
-
+            android:visibility="visible"
+            tools:visibility="gone" />
     </FrameLayout>
 
-    <!-- APARTADO PARA ESCRIBIR UNA NUEVA RESEÑA (Tu código ya era correcto) -->
-    <LinearLayout
-        android:id="@+id/layoutAddReview"
+    <!-- ⭐⭐ APARTADO MEJORADO PARA ESCRIBIR RESEÑA ⭐⭐ -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardAddReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="#EFEFEF"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="12dp">
+        android:layout_marginTop="16dp">
 
-        <ImageView
-            android:id="@+id/iconEdit"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_edit"
-            app:tint="#555" />
-
-        <EditText
-            android:id="@+id/inputReview"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_edittext"
-            android:hint="Escribe tu reseña..."
-            android:maxLines="3"
-            android:padding="10dp"
-            android:textColor="#000"
-            android:textColorHint="#777" />
+            android:orientation="vertical"
+            android:padding="12dp">
 
-        <Button
-            android:id="@+id/btnSubirResena"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:backgroundTint="#1A73E8"
-            android:text="Subir"
-            android:textColor="#fff" />
-    </LinearLayout>
+            <!-- ⭐ 1. RatingBar para que el usuario califique -->
+            <RatingBar
+                android:id="@+id/rating_bar_nueva_resena"
+                style="?android:attr/ratingBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:numStars="5"
+                android:stepSize="1.0" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/inputReview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_edittext"
+                    android:hint="Escribe tu reseña..."
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:padding="10dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSubirResena"
+                    style="@style/Widget.Material3.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:icon="@drawable/ic_send" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

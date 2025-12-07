@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    1. Removed `android:fitsSystemWindows="true"` from the root.
-    It will be handled by AppBarLayout for better control.
--->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,8 +7,6 @@
     android:background="#EAEAEA"
     tools:context=".ui.chat.ChatActivity">
 
-    <!-- ⭐ IMPROVEMENT 1: AppBarLayout to manage the Toolbar ⭐ -->
-    <!-- This component correctly handles the top system inset (status bar space). -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="0dp"
@@ -22,7 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- ⭐ IMPROVEMENT 2: Toolbar with standard height and theme-aware colors ⭐ -->
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_chat"
             android:layout_width="match_parent"
@@ -36,23 +29,21 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- 🟣 Message List -->
-    <!-- Added `reverseLayout="true"` for standard chat behavior (starts from bottom) -->
+    <!-- ⭐ CORRECCIÓN: Solo se necesita UN RecyclerView para toda la conversación. -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_chat"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingVertical="8dp"
+        android:paddingHorizontal="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:reverseLayout="true"
         app:layout_constraintBottom_toTopOf="@+id/layout_chat_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
         tools:listitem="@layout/item_chat_message_sent"/>
 
-    <!-- ⭐ IMPROVEMENT 3: Input area with adaptive height ⭐ -->
     <LinearLayout
         android:id="@+id/layout_chat_input"
         android:layout_width="0dp"
@@ -76,7 +67,8 @@
             android:inputType="textMultiLine"
             android:maxLines="5"
             android:minHeight="48dp"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:autofillHints="none" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_send"
@@ -87,7 +79,7 @@
             android:src="@android:drawable/ic_menu_send"
             app:backgroundTint="?attr/colorPrimary"
             app:fabSize="mini"
-            app:tint="?attr/colorOnPrimary" /> <!-- `tint` is correct for FAB icon color -->
+            app:tint="?attr/colorOnPrimary" />
 
     </LinearLayout>
 

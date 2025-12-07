@@ -1,30 +1,27 @@
-package com.example.proyectofinal11
+package com.example.proyectofinal11.adapters
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.proyectofinal11.TabInformacionFragment
+import com.example.proyectofinal11.TabPortafolioFragment
+import com.example.proyectofinal11.TabResenasFragment
+import java.lang.IllegalStateException
 
-// CAMBIO: El adaptador ahora acepta el UID del usuario.
-class ProfilePagerAdapter(activity: FragmentActivity, private val usuarioUid: String?) : FragmentStateAdapter(activity) {
+class ProfilePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+
+    var profesionalUid: String? = null
 
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
-        // Creamos un 'bundle' para pasar el UID a cada fragmento hijo.
-        val bundle = Bundle().apply {
-            putString("USUARIO_UID", usuarioUid)
-        }
+        // Si el UID aún no se ha asignado (por seguridad), devolvemos un fragmento vacío para evitar un crash.
+        val uid = profesionalUid ?: return Fragment()
 
-        val fragment = when (position) {
-            0 -> TabInformacionFragment()
-            1 -> TabPortafolioFragment()
-            2 -> TabResenasFragment()
-            else -> TabInformacionFragment()
+        return when (position) {
+            0 -> TabInformacionFragment.newInstance(uid)
+            1 -> TabPortafolioFragment.newInstance(uid)
+            2 -> TabResenasFragment.newInstance(uid)
+            else -> throw IllegalStateException("Posición de pestaña inválida: $position")
         }
-
-        // Adjuntamos el 'bundle' con el UID al fragmento antes de devolverlo.
-        fragment.arguments = bundle
-        return fragment
     }
 }

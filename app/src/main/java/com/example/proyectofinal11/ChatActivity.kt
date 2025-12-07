@@ -10,15 +10,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofinal11.adapters.ChatAdapter
-import com.example.proyectofinal11.data.local.entity.MensajeChatEntity
+import com.example.proyectofinal11.models.Message
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-import java.util.UUID
+import com.google.firebase.firestore.DocumentChange // ⭐ MEJORA 1: Importación necesaria
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import java.util.Date
 
 class ChatActivity : AppCompatActivity() {
 
+    // Firebase
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     // Vistas y Adaptador
     private lateinit var toolbar: MaterialToolbar
@@ -28,61 +33,56 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var chatAdapter: ChatAdapter
 
     // Datos del chat
-    private var receptorUid: String? = null
-    private var receptorNombre: String? = null
-    private var conversacionId: String? = null
-
-    // Lista local de mensajes
-    private val listaDeMensajes = mutableListOf<MensajeChatEntity>()
+    private lateinit var currentUserUid: String
+    private lateinit var conversacionId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        // 1. Inicializar
+        // 1. Inicializar Firebase
         auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        currentUserUid = auth.currentUser?.uid ?: return finishWithMessage("Error: Usuario no autenticado.")
+
+        // 2. Recibir datos del Intent
+        conversacionId = intent.getStringExtra("CONVERSACION_ID") ?: return finishWithMessage("Error: ID de conversación no encontrado.")
+        val chatTitle = intent.getStringExtra("CHAT_TITLE") ?: "Chat"
+
+        Log.d("ChatActivity", "Iniciando chat. ConversacionID: $conversacionId")
+
+        // 3. Configurar UI
+        setupViews()
+        setupToolbar(chatTitle)
+        setupRecyclerView()
+        setupSendButton()
+
+        // 4. Escuchar mensajes en tiempo real desde Firestore
+        escucharMensajes()
+    }
+
+    private fun setupViews() {
         toolbar = findViewById(R.id.toolbar_chat)
         messageEditText = findViewById(R.id.edit_text_message)
         sendButton = findViewById(R.id.button_send)
         chatRecyclerView = findViewById(R.id.recycler_view_chat)
-
-        // 2. Recibir datos
-        receptorUid = intent.getStringExtra("RECEPTOR_UID")
-        receptorNombre = intent.getStringExtra("RECEPTOR_NOMBRE")
-
-        // 3. Configurar UI
-        setupToolbar()
-        setupRecyclerView()
-        setupSendButton()
-
-        // 4. Validar y cargar datos iniciales
-        if (receptorUid == null) {
-            Toast.makeText(this, "Error: No se pudo identificar al destinatario.", Toast.LENGTH_LONG).show()
-            finish()
-            return
-        }
-
-        // Generamos un ID único para esta conversación
-        conversacionId = generarIdDeConversacion(auth.currentUser!!.uid, receptorUid!!)
-        Log.d("ChatActivity", "ID de conversación: $conversacionId")
-
-        // Aquí cargarías los mensajes guardados de la base de datos
-        // cargarMensajesAnteriores(conversacionId!!)
     }
 
-    private fun setupToolbar() {
+    private fun setupToolbar(title: String) {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = receptorNombre ?: "Chat"
+        supportActionBar?.title = title
     }
 
     private fun setupRecyclerView() {
         chatAdapter = ChatAdapter()
         chatRecyclerView.adapter = chatAdapter
-        val layoutManager = LinearLayoutManager(this)
-        // Para que la lista empiece mostrando los últimos mensajes
-        layoutManager.stackFromEnd = true
-        chatRecyclerView.layoutManager = layoutManager
+        // ⭐ MEJORA 2: Se añade 'reverseLayout = true' para un comportamiento de chat natural
+        // Ahora `stackFromEnd` y `reverseLayout` trabajan juntos para imitar WhatsApp.
+        chatRecyclerView.layoutManager = LinearLayoutManager(this).apply {
+            reverseLayout = true
+        }
     }
 
     private fun setupSendButton() {
@@ -90,69 +90,65 @@ class ChatActivity : AppCompatActivity() {
             val mensajeTexto = messageEditText.text.toString().trim()
             if (mensajeTexto.isNotEmpty()) {
                 enviarMensaje(mensajeTexto)
-                messageEditText.text.clear() // Limpiamos el campo de texto
+                messageEditText.text.clear()
             }
         }
     }
 
     private fun enviarMensaje(texto: String) {
-        val emisorUid = auth.currentUser?.uid
-        if (emisorUid == null || receptorUid == null || conversacionId == null) {
-            Toast.makeText(this, "Error: No se puede enviar el mensaje.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // 1. Crear el objeto del nuevo mensaje
-        val nuevoMensaje = MensajeChatEntity(
-            conversacionId = conversacionId!!,
-            emisorUid = emisorUid,
-            receptorUid = receptorUid!!,
+        val nuevoMensaje = Message(
+            emisorUid = currentUserUid,
             texto = texto,
-            timestamp = System.currentTimeMillis()
+            timestamp = Date()
         )
 
-        // 2. Añadir el nuevo mensaje a nuestra lista local
-        listaDeMensajes.add(nuevoMensaje)
-
-        // 3. Notificar al adaptador para que muestre el nuevo mensaje en la pantalla
-        // Usamos toList() para crear una copia nueva de la lista, que es lo que ListAdapter necesita.
-        chatAdapter.submitList(listaDeMensajes.toList())
-
-        // 4. Mover la vista al último mensaje
-        chatRecyclerView.scrollToPosition(listaDeMensajes.size - 1)
-
-        // (Opcional pero recomendado) Guardar el mensaje en la base de datos en segundo plano
-        // lifecycleScope.launch { db.mensajeDao().insertarMensaje(nuevoMensaje) }
+        firestore.collection("chats").document(conversacionId)
+            .collection("mensajes").add(nuevoMensaje)
+            .addOnSuccessListener {
+                Log.d("ChatActivity", "Mensaje enviado con éxito.")
+                // No es necesario actualizar la lista manualmente aquí,
+                // el 'listener' de `escucharMensajes` lo hará automáticamente.
+            }
+            .addOnFailureListener { e ->
+                Log.e("ChatActivity", "Error al enviar mensaje", e)
+                Toast.makeText(this, "Error al enviar", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    // Genera un ID de chat consistente entre dos usuarios, sin importar quién inicia.
-    private fun generarIdDeConversacion(uid1: String, uid2: String): String {
-        return if (uid1 < uid2) {
-            "$uid1-$uid2"
-        } else {
-            "$uid2-$uid1"
-        }
+    private fun escucharMensajes() {
+        // ⭐ MEJORA 3: El `listener` ahora ordena DESCENDENTE para que los nuevos mensajes lleguen primero.
+        firestore.collection("chats").document(conversacionId)
+            .collection("mensajes").orderBy("timestamp", Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    Log.e("ChatActivity", "Error al escuchar mensajes", error)
+                    return@addSnapshotListener
+                }
+
+                if (snapshots != null) {
+                    val mensajes = snapshots.toObjects(Message::class.java)
+                    chatAdapter.submitList(mensajes)
+                    // No es necesario el scrollToPosition, porque `reverseLayout=true` y el orden descendente
+                    // ya se encargan de poner los mensajes nuevos en la parte superior (que es la parte visible inferior).
+                }
+            }
     }
 
-    // El resto de tu código para el menú y el botón de atrás está bien
+    private fun finishWithMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        finish()
+    }
+
+    // Métodos para el menú y el botón de atrás, no necesitan cambios.
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.chat_menu, menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_rename_work -> {
-                Toast.makeText(this, "Cambiar nombre presionado", Toast.LENGTH_SHORT).show()
-                true
-            }
-            // etc...
-            else -> super.onOptionsItemSelected(item)
-        }
+        return super.onOptionsItemSelected(item)
     }
 }

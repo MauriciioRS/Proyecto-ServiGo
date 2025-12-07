@@ -21,11 +21,28 @@ class TabPortafolioFragment : Fragment() {
     private var usuarioUid: String? = null
     private lateinit var portafolioAdapter: PortafolioAdapter
 
+    // ⭐ 1. AÑADE ESTE BLOQUE "companion object"
+    // Esto define la función estática `newInstance` que tu `ProfilePagerAdapter` está buscando.
+    companion object {
+        private const val ARG_USUARIO_UID = "USUARIO_UID"
+
+        fun newInstance(usuarioUid: String): TabPortafolioFragment {
+            val fragment = TabPortafolioFragment()
+            val args = Bundle()
+            args.putString(ARG_USUARIO_UID, usuarioUid)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = ServiGoDatabase.getDatabase(requireContext())
+
+        // ⭐ 2. CÓDIGO CORREGIDO PARA LEER EL ARGUMENTO DE FORMA SEGURA
+        // Ahora usamos la constante que definimos en el companion object.
         arguments?.let {
-            usuarioUid = it.getString("USUARIO_UID")
+            usuarioUid = it.getString(ARG_USUARIO_UID)
         }
     }
 
@@ -33,8 +50,6 @@ class TabPortafolioFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Usaremos el layout que ya tienes, solo necesitamos darle un ID al GridLayout.
-        // Por simplicidad, aquí usaré un layout genérico que puedes adaptar.
         return inflater.inflate(R.layout.fragment_tab_recyclerview_base, container, false)
     }
 
@@ -47,8 +62,7 @@ class TabPortafolioFragment : Fragment() {
 
         portafolioAdapter = PortafolioAdapter()
         recyclerView.adapter = portafolioAdapter
-        // Usamos un GridLayout para mostrar las fotos en una cuadrícula
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2) // Cuadrícula de 2 columnas
 
         if (usuarioUid != null) {
             observePortafolio(emptyTextView, recyclerView)

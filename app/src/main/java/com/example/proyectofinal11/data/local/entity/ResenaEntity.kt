@@ -9,16 +9,17 @@ import androidx.room.PrimaryKey
     foreignKeys = [ForeignKey(
         entity = UsuarioEntity::class,
         parentColumns = ["firebaseUid"],
-        childColumns = ["profesionalUid"], // El UID del perfil que está siendo reseñado
+        childColumns = ["profesionalUid"],
         onDelete = ForeignKey.CASCADE
     )]
 )
 data class ResenaEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val profesionalUid: String, // UID del perfil reseñado
-    val autorNombre: String,      // Nombre de quien escribe la reseña
-    val autorFotoUrl: String?,    // Foto de quien escribe la reseña
+    val profesionalUid: String,
+    val clienteUid: String,
+    val clienteNombre: String,
+    val clienteFotoUrl: String?,
+    val calificacion: Double,
     val comentario: String,
-    val rating: Float,
-    val timestamp: Long
+    val fecha: Long
 )

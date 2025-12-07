@@ -1,15 +1,11 @@
 package com.example.proyectofinal11.models
 
-data class Mensaje(
-    val id: String,
-    val nombre: String,
-    val profesion: String?,
-    val ultimoMensaje: String,
-    val hora: String,
-    val estado: String, // "Pendiente", "Proceso", "Terminado"
-    val unreadCount: Int = 0,
-    val avatarUrl: String? = null
-) {
-    val displayName: String
-        get() = if (!profesion.isNullOrBlank()) "$nombre - $profesion" else nombre
-}
+import com.google.firebase.firestore.ServerTimestamp
+import java.util.Date
+
+// Modelo simple y único para un mensaje en Firestore
+data class Message(
+    val emisorUid: String = "",
+    val texto: String = "",
+    @ServerTimestamp val timestamp: Date? = null // Firestore asigna la hora del servidor
+)

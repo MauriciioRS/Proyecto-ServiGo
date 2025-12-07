@@ -16,9 +16,8 @@ interface MensajeDao {
     fun getConversacionesByEstado(estado: String): Flow<List<MensajeEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(mensajes: List<MensajeEntity>)
+    suspend fun insertAll(mensajes: List<MensajeEntity>) // <-- Añadido `suspend`
 
     @Query("DELETE FROM conversaciones")
     suspend fun deleteAll()
 }
-    

@@ -17,12 +17,28 @@ class TabInformacionFragment : Fragment() {
     private lateinit var db: ServiGoDatabase
     private var usuarioUid: String? = null
 
+    // ⭐ 1. AÑADE ESTE BLOQUE "companion object"
+    // Esto define la función estática `newInstance` que tu `ProfilePagerAdapter` está buscando.
+    companion object {
+        private const val ARG_USUARIO_UID = "USUARIO_UID"
+
+        fun newInstance(usuarioUid: String): TabInformacionFragment {
+            val fragment = TabInformacionFragment()
+            val args = Bundle()
+            args.putString(ARG_USUARIO_UID, usuarioUid)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = ServiGoDatabase.getDatabase(requireContext())
-        // Recibimos el UID que ProfilePagerAdapter nos pasa
+
+        // ⭐ 2. CÓDIGO CORREGIDO PARA LEER EL ARGUMENTO DE FORMA SEGURA
+        // Ahora usamos la constante que definimos en el companion object.
         arguments?.let {
-            usuarioUid = it.getString("USUARIO_UID")
+            usuarioUid = it.getString(ARG_USUARIO_UID)
         }
     }
 
